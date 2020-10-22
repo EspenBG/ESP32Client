@@ -2,14 +2,15 @@
 
 This is a arduino client for reading different types of sensors, for integrating the client to a server.
 
-[comment]: <> (TODO: Add a complete guide and description for the module)
+[//]: # (TODO: Add a complete guide and description for the module)
 
 ## Installation
 Describe the installation  process for the library.
  
 ## Usage
-[comment]: <> (TODO: Describe the usage of the library and test program)
+[//]: # (TODO: Describe the usage of the library and test program)
 Describe how to use the library.
+
 
 ## Contributing
 If you want to contribute to this project you need to use the same structure and guidelines followed by this project.
@@ -18,7 +19,7 @@ This project is made in CLion, as an CMake project Using the PlatformIO Plugin f
 but they are not covered here.
 
 You need to install [Platform IO Core](https://docs.platformio.org/en/latest/core/installation.html), and add the
-Install Shell Commands as instructed [here](Install Shell Commands), [here](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/)
+Install Shell Commands as instructed [here](https://docs.platformio.org/en/latest/core/installation.html#piocore-install-shell-commands), [here](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/)
 are some supplementary help for Windows 10. The plugin for CLion is also required,
 for building and flashing of the program. The plugin can be found in the plugin marketplace in CLion (Settings/Preferences | Plugins).
 
