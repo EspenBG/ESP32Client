@@ -29,5 +29,15 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Please make sure to update tests as appropriate.
 
+## Branches
+wip - Works in progress; stuff I know won't be finished soon
+
+feat - Feature I'm adding or expanding
+
+bug - Bug fix or experiment
+
+junk - Throwaway branch created to experiment
+
+
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
