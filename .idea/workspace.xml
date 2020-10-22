@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
-      <config projectName="ESP32Client" targetName="Z_DUMMY_TARGET" />
       <config projectName="ESP32Client" targetName="Production" />
+      <config projectName="ESP32Client" targetName="Z_DUMMY_TARGET" />
       <config projectName="ESP32Client" targetName="Debug" />
     </generated>
   </component>
@@ -13,7 +16,13 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="936bc293-097a-445b-8294-fc0e1d190978" name="Default Changelist" comment="" />
+    <list default="true" id="936bc293-097a-445b-8294-fc0e1d190978" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platformio.ini" beforeDir="false" afterPath="$PROJECT_DIR$/platformio.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,23 +32,33 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:az-delivery-devkit-v4" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1jBbC3tOjHKHkVjsPmlbYezXPfH" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
-    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
+    <property name="settings.editor.selected.configurable" value="project.propDebugger" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="PlatformIO.PlatformIO Debug">
+  <component name="RunManager" selected="PlatformIO.PlatformIO Upload (1)">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Z_DUMMY_TARGET" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ESP32Client" TARGET_NAME="Z_DUMMY_TARGET" CONFIG_NAME="az-delivery-devkit-v4" RUN_TARGET_PROJECT_NAME="ESP32Client" RUN_TARGET_NAME="Z_DUMMY_TARGET">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -55,6 +74,11 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="PlatformIO Upload (1)" type="platformio" factoryName="PlatformIO Upload" nameIsGenerated="true" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ESP32Client" TARGET_NAME="Production" CONFIG_NAME="az-delivery-devkit-v4">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="PlatformIO Upload" type="platformio" factoryName="PlatformIO Upload" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ESP32Client" TARGET_NAME="Production" CONFIG_NAME="az-delivery-devkit-v4" RUN_TARGET_PROJECT_NAME="ESP32Client" RUN_TARGET_NAME="Production">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -62,6 +86,7 @@
     </configuration>
     <list>
       <item itemvalue="CMake Application.Z_DUMMY_TARGET" />
+      <item itemvalue="PlatformIO.PlatformIO Upload (1)" />
       <item itemvalue="PlatformIO.PlatformIO Debug" />
       <item itemvalue="PlatformIO.PlatformIO Upload" />
     </list>
@@ -75,7 +100,7 @@
       <option name="presentableId" value="Default" />
       <updated>1603280300224</updated>
       <workItem from="1603280301270" duration="71000" />
-      <workItem from="1603280390790" duration="55000" />
+      <workItem from="1603280390790" duration="3175000" />
     </task>
     <servers />
   </component>
@@ -83,30 +108,79 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="581" y="329" width="398" height="248" key="Github.ShareDialog" timestamp="1603280400143">
+    <state x="184" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603286038884">
+      <screen x="0" y="23" width="1440" height="806" />
+    </state>
+    <state x="184" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603286038884" />
+    <state x="581" y="329" width="423" height="192" key="Github.ShareDialog" timestamp="1603280456075">
       <screen x="0" y="23" width="1440" height="804" />
     </state>
-    <state x="581" y="329" key="Github.ShareDialog/0.23.1440.804/-1235.-2137.3840.2137@0.23.1440.804" timestamp="1603280400143" />
+    <state x="581" y="329" width="423" height="192" key="Github.ShareDialog/0.23.1440.804/-1235.-2137.3840.2137@0.23.1440.804" timestamp="1603280456075" />
     <state x="581" y="330" width="398" height="248" key="Github.ShareDialog/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280369702" />
-    <state width="1398" height="207" key="GridCell.Tab.0.bottom" timestamp="1603280371619">
-      <screen x="0" y="23" width="1440" height="806" />
-    </state>
-    <state width="1398" height="207" key="GridCell.Tab.0.bottom/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280371619" />
-    <state width="1398" height="207" key="GridCell.Tab.0.center" timestamp="1603280371617">
-      <screen x="0" y="23" width="1440" height="806" />
-    </state>
-    <state width="1398" height="207" key="GridCell.Tab.0.center/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280371617" />
-    <state width="1398" height="207" key="GridCell.Tab.0.left" timestamp="1603280371616">
-      <screen x="0" y="23" width="1440" height="806" />
-    </state>
-    <state width="1398" height="207" key="GridCell.Tab.0.left/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280371616" />
-    <state width="1398" height="207" key="GridCell.Tab.0.right" timestamp="1603280371618">
-      <screen x="0" y="23" width="1440" height="806" />
-    </state>
-    <state width="1398" height="207" key="GridCell.Tab.0.right/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280371618" />
-    <state x="221" y="64" key="SettingsEditor" timestamp="1603280444868">
+    <state x="518" y="137" key="Github.UntrackedFilesDialog" timestamp="1603280468188">
       <screen x="0" y="23" width="1440" height="804" />
+    </state>
+    <state x="518" y="137" key="Github.UntrackedFilesDialog/0.23.1440.804/-1235.-2137.3840.2137@0.23.1440.804" timestamp="1603280468188" />
+    <state width="1398" height="206" key="GridCell.Tab.0.bottom" timestamp="1603371673463">
+      <screen x="0" y="23" width="1440" height="806" />
+    </state>
+    <state width="1398" height="206" key="GridCell.Tab.0.bottom/0.23.1440.804/-1235.-2137.3840.2137@0.23.1440.804" timestamp="1603284279907" />
+    <state width="1398" height="206" key="GridCell.Tab.0.bottom/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603286044453" />
+    <state width="1398" height="206" key="GridCell.Tab.0.bottom/0.23.1440.806@0.23.1440.806" timestamp="1603371673463" />
+    <state width="1398" height="206" key="GridCell.Tab.0.center" timestamp="1603371673462">
+      <screen x="0" y="23" width="1440" height="806" />
+    </state>
+    <state width="1398" height="206" key="GridCell.Tab.0.center/0.23.1440.804/-1235.-2137.3840.2137@0.23.1440.804" timestamp="1603284279906" />
+    <state width="1398" height="206" key="GridCell.Tab.0.center/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603286044452" />
+    <state width="1398" height="206" key="GridCell.Tab.0.center/0.23.1440.806@0.23.1440.806" timestamp="1603371673462" />
+    <state width="1398" height="206" key="GridCell.Tab.0.left" timestamp="1603371673462">
+      <screen x="0" y="23" width="1440" height="806" />
+    </state>
+    <state width="1398" height="206" key="GridCell.Tab.0.left/0.23.1440.804/-1235.-2137.3840.2137@0.23.1440.804" timestamp="1603284279906" />
+    <state width="1398" height="206" key="GridCell.Tab.0.left/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603286044451" />
+    <state width="1398" height="206" key="GridCell.Tab.0.left/0.23.1440.806@0.23.1440.806" timestamp="1603371673462" />
+    <state width="1398" height="206" key="GridCell.Tab.0.right" timestamp="1603371673463">
+      <screen x="0" y="23" width="1440" height="806" />
+    </state>
+    <state width="1398" height="206" key="GridCell.Tab.0.right/0.23.1440.804/-1235.-2137.3840.2137@0.23.1440.804" timestamp="1603284279907" />
+    <state width="1398" height="206" key="GridCell.Tab.0.right/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603286044453" />
+    <state width="1398" height="206" key="GridCell.Tab.0.right/0.23.1440.806@0.23.1440.806" timestamp="1603371673463" />
+    <state width="1398" height="256" key="GridCell.Tab.1.bottom" timestamp="1603285666994">
+      <screen x="0" y="23" width="1440" height="806" />
+    </state>
+    <state width="1398" height="256" key="GridCell.Tab.1.bottom/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603285666994" />
+    <state width="1398" height="256" key="GridCell.Tab.1.center" timestamp="1603285666992">
+      <screen x="0" y="23" width="1440" height="806" />
+    </state>
+    <state width="1398" height="256" key="GridCell.Tab.1.center/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603285666992" />
+    <state width="1398" height="256" key="GridCell.Tab.1.left" timestamp="1603285666992">
+      <screen x="0" y="23" width="1440" height="806" />
+    </state>
+    <state width="1398" height="256" key="GridCell.Tab.1.left/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603285666992" />
+    <state width="1398" height="256" key="GridCell.Tab.1.right" timestamp="1603285666993">
+      <screen x="0" y="23" width="1440" height="806" />
+    </state>
+    <state width="1398" height="256" key="GridCell.Tab.1.right/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603285666993" />
+    <state width="1398" height="256" key="GridCell.Tab.2.bottom" timestamp="1603285666996">
+      <screen x="0" y="23" width="1440" height="806" />
+    </state>
+    <state width="1398" height="256" key="GridCell.Tab.2.bottom/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603285666996" />
+    <state width="1398" height="256" key="GridCell.Tab.2.center" timestamp="1603285666995">
+      <screen x="0" y="23" width="1440" height="806" />
+    </state>
+    <state width="1398" height="256" key="GridCell.Tab.2.center/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603285666995" />
+    <state width="1398" height="256" key="GridCell.Tab.2.left" timestamp="1603285666994">
+      <screen x="0" y="23" width="1440" height="806" />
+    </state>
+    <state width="1398" height="256" key="GridCell.Tab.2.left/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603285666994" />
+    <state width="1398" height="256" key="GridCell.Tab.2.right" timestamp="1603285666996">
+      <screen x="0" y="23" width="1440" height="806" />
+    </state>
+    <state width="1398" height="256" key="GridCell.Tab.2.right/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603285666996" />
+    <state x="221" y="64" key="SettingsEditor" timestamp="1603285918466">
+      <screen x="0" y="23" width="1440" height="806" />
     </state>
     <state x="221" y="64" key="SettingsEditor/0.23.1440.804/-1235.-2137.3840.2137@0.23.1440.804" timestamp="1603280444868" />
+    <state x="221" y="64" key="SettingsEditor/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603285918466" />
   </component>
 </project>

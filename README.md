@@ -1,6 +1,6 @@
-# Arduino Client
+# ESP-32 Client
 
-This is a arduino client for reading different types of sensors, for integrating the client to a server.
+This is a ESP-32 client for reading different types of sensors, for integrating the client to a server.
 
 [comment]: <> (TODO: Add a complete guide and description for the module)
 
