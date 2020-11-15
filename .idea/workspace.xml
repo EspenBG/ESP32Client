@@ -20,21 +20,37 @@
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
-      <config projectName="ESP32Client" targetName="Production" />
       <config projectName="ESP32Client" targetName="Z_DUMMY_TARGET" />
+      <config projectName="ESP32Client" targetName="Production" />
       <config projectName="ESP32Client" targetName="Debug" />
     </generated>
   </component>
   <component name="CMakeSettings">
     <configurations>
-      <configuration PROFILE_NAME="az-delivery-devkit-v4" CONFIG_NAME="az-delivery-devkit-v4" />
+      <configuration PROFILE_NAME="az-delivery-devkit-v4" CONFIG_NAME="az-delivery-devkit-v4" GENERATION_DIR="cmake-build-az-delivery-devkit-v4" />
     </configurations>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="936bc293-097a-445b-8294-fc0e1d190978" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExampleCode/Eksempelkode - IELET2001 Prosjekt/ESP32 (klient)/test/testprosjekt.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/SocketIo/SocketIoClient.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/SocketIo/SocketIoClient.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/SocketIo/WebSockets.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/SocketIo/WebSockets.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/SocketIo/WebSocketsClient.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/SocketIo/WebSocketsClient.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/SocketIo/libb64/AUTHORS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/SocketIo/libb64/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/SocketIo/libb64/cdecode.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/SocketIo/libb64/cdecode_inc.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/SocketIo/libb64/cencode.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/SocketIo/libb64/cencode_inc.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/SocketIo/libsha1/libsha1.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/SocketIo/libsha1/libsha1.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExampleCode/Eksempelkode - IELET2001 Prosjekt/ESP32 (klient)/ESP32_socket_example/ESP32_socket_example.ino" beforeDir="false" afterPath="$PROJECT_DIR$/ExampleCode/Eksempelkode - IELET2001 Prosjekt/ESP32 (klient)/ESP32_socket_example/ESP32_socket_example.ino" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/README" beforeDir="false" afterPath="$PROJECT_DIR$/ExampleCode/Eksempelkode - IELET2001 Prosjekt/ESP32 (klient)/test/README" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,19 +74,25 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
-    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\tony_\CLionProjects\ESP32Client\lib" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\tony_\CLionProjects\ESP32Client\ExampleCode\Eksempelkode - IELET2001 Prosjekt\ESP32 (klient)" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="PlatformIO.PlatformIO Debug">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="PlatformIO.PlatformIO Upload">
     <configuration name="Z_DUMMY_TARGET" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ESP32Client" TARGET_NAME="Z_DUMMY_TARGET" CONFIG_NAME="az-delivery-devkit-v4" RUN_TARGET_PROJECT_NAME="ESP32Client" RUN_TARGET_NAME="Z_DUMMY_TARGET">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -108,6 +130,12 @@
       <workItem from="1603280301270" duration="71000" />
       <workItem from="1603280390790" duration="55000" />
       <workItem from="1603354104744" duration="3061000" />
+      <workItem from="1604607458077" duration="1601000" />
+      <workItem from="1605046520217" duration="221000" />
+      <workItem from="1605046785424" duration="1550000" />
+      <workItem from="1605049172743" duration="14536000" />
+      <workItem from="1605378917916" duration="1219000" />
+      <workItem from="1605437977414" duration="5362000" />
     </task>
     <servers />
   </component>
@@ -124,32 +152,77 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="267" y="19" key="#Inspections" timestamp="1605442019519">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="267" y="19" key="#Inspections/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605442019519" />
+    <state x="96" y="0" width="1086" height="680" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1605048263538">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="96" y="0" width="1086" height="680" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605048263538" />
+    <state x="476" y="97" key="FileChooserDialogImpl" timestamp="1605096555995">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="476" y="97" key="FileChooserDialogImpl/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605050425933" />
+    <state x="476" y="97" key="FileChooserDialogImpl/0.0.1280.680/-540.-2160.2560.1400@0.0.1280.680" timestamp="1605096555995" />
     <state x="581" y="329" width="398" height="248" key="Github.ShareDialog" timestamp="1603280400143">
       <screen x="0" y="23" width="1440" height="804" />
     </state>
     <state x="581" y="329" key="Github.ShareDialog/0.23.1440.804/-1235.-2137.3840.2137@0.23.1440.804" timestamp="1603280400143" />
     <state x="581" y="330" width="398" height="248" key="Github.ShareDialog/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280369702" />
-    <state width="1398" height="207" key="GridCell.Tab.0.bottom" timestamp="1603280371619">
-      <screen x="0" y="23" width="1440" height="806" />
+    <state width="1223" height="399" key="GridCell.Tab.0.bottom" timestamp="1605104536451">
+      <screen x="-540" y="-2160" width="2560" height="1400" />
     </state>
+    <state width="1237" height="163" key="GridCell.Tab.0.bottom/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605049761796" />
+    <state width="1223" height="399" key="GridCell.Tab.0.bottom/0.0.1280.680/-540.-2160.2560.1400@-540.-2160.2560.1400" timestamp="1605104536451" />
     <state width="1398" height="207" key="GridCell.Tab.0.bottom/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280371619" />
-    <state width="1398" height="207" key="GridCell.Tab.0.center" timestamp="1603280371617">
-      <screen x="0" y="23" width="1440" height="806" />
+    <state width="1223" height="399" key="GridCell.Tab.0.center" timestamp="1605104536451">
+      <screen x="-540" y="-2160" width="2560" height="1400" />
     </state>
+    <state width="1237" height="163" key="GridCell.Tab.0.center/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605049761796" />
+    <state width="1223" height="399" key="GridCell.Tab.0.center/0.0.1280.680/-540.-2160.2560.1400@-540.-2160.2560.1400" timestamp="1605104536451" />
     <state width="1398" height="207" key="GridCell.Tab.0.center/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280371617" />
-    <state width="1398" height="207" key="GridCell.Tab.0.left" timestamp="1603280371616">
-      <screen x="0" y="23" width="1440" height="806" />
+    <state width="1223" height="399" key="GridCell.Tab.0.left" timestamp="1605104536451">
+      <screen x="-540" y="-2160" width="2560" height="1400" />
     </state>
+    <state width="1237" height="163" key="GridCell.Tab.0.left/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605049761796" />
+    <state width="1223" height="399" key="GridCell.Tab.0.left/0.0.1280.680/-540.-2160.2560.1400@-540.-2160.2560.1400" timestamp="1605104536451" />
     <state width="1398" height="207" key="GridCell.Tab.0.left/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280371616" />
-    <state width="1398" height="207" key="GridCell.Tab.0.right" timestamp="1603280371618">
-      <screen x="0" y="23" width="1440" height="806" />
+    <state width="1223" height="399" key="GridCell.Tab.0.right" timestamp="1605104536451">
+      <screen x="-540" y="-2160" width="2560" height="1400" />
     </state>
+    <state width="1237" height="163" key="GridCell.Tab.0.right/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605049761796" />
+    <state width="1223" height="399" key="GridCell.Tab.0.right/0.0.1280.680/-540.-2160.2560.1400@-540.-2160.2560.1400" timestamp="1605104536451" />
     <state width="1398" height="207" key="GridCell.Tab.0.right/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280371618" />
-    <state x="221" y="64" key="SettingsEditor" timestamp="1603280444868">
-      <screen x="0" y="23" width="1440" height="804" />
+    <state x="-148" y="-2160" width="994" height="680" key="SettingsEditor" timestamp="1605105391846">
+      <screen x="-540" y="-2160" width="2560" height="1400" />
     </state>
+    <state x="196" y="0" width="994" height="680" key="SettingsEditor/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605050583138" />
+    <state x="-148" y="-2160" key="SettingsEditor/0.0.1280.680/-540.-2160.2560.1400@-540.-2160.2560.1400" timestamp="1605105391846" />
+    <state x="196" y="0" key="SettingsEditor/0.0.1280.680/-540.-2160.2560.1400@0.0.1280.680" timestamp="1605096608927" />
     <state x="221" y="64" key="SettingsEditor/0.23.1440.804/-1235.-2137.3840.2137@0.23.1440.804" timestamp="1603280444868" />
+    <state x="456" y="254" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605046574600">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="456" y="254" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605046574600" />
+    <state x="359" y="-2160" width="990" height="1068" key="dock-window-1" timestamp="1605100181819">
+      <screen x="-540" y="-2160" width="2560" height="1400" />
+    </state>
+    <state x="359" y="-2160" width="990" height="1068" key="dock-window-1/0.0.1280.680/-540.-2160.2560.1400@-540.-2160.2560.1400" timestamp="1605100181819" />
+    <state x="1145" y="-1561" width="643" height="801" key="find.popup" timestamp="1605098403704">
+      <screen x="-540" y="-2160" width="2560" height="1400" />
+    </state>
+    <state x="1145" y="-1561" width="643" height="801" key="find.popup/0.0.1280.680/-540.-2160.2560.1400@-540.-2160.2560.1400" timestamp="1605098403704" />
+    <state x="366" y="125" key="refactoring.ChangeSignatureDialog" timestamp="1605443114799">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="366" y="125" key="refactoring.ChangeSignatureDialog/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605443114799" />
+    <state x="303" y="2" width="672" height="678" key="search.everywhere.popup" timestamp="1605441519317">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="303" y="2" width="672" height="678" key="search.everywhere.popup/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605441519317" />
   </component>
 </project>
