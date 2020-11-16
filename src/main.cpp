@@ -75,7 +75,8 @@ void checkLEDState() {
 }
 
 void print_to_console(const char * payload, size_t length) {
-    Serial.println("Melding motatt");
+    Serial.println("Melding motatt:" );
+    Serial.print(payload);
 }
 
 void setup() {
@@ -111,7 +112,8 @@ void setup() {
     webSocket.on("test", print_to_console);
     // webSocket.on("state_change_request", socket_pushButton);
 
-    webSocket.emit("Test", "Skriv dinne i JS console");
+    // Fungerende sende linje
+    webSocket.emit("Test", "\"this is a plain string\"");
 
     // Setup Connection
     if (useSSL) {

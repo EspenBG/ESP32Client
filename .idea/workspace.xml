@@ -27,14 +27,13 @@
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="BRANCH:origin/master" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </select>
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
-      <config projectName="ESP32Client" targetName="Z_DUMMY_TARGET" />
       <config projectName="ESP32Client" targetName="Production" />
+      <config projectName="ESP32Client" targetName="Z_DUMMY_TARGET" />
       <config projectName="ESP32Client" targetName="Debug" />
     </generated>
   </component>
@@ -44,9 +43,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="936bc293-097a-445b-8294-fc0e1d190978" name="Default Changelist" comment="Lagt til bibliotek, laget standardfnksjoner for kommunikasjon til og fra ESP32. Basert på socket_example.">
-      <change afterPath="$PROJECT_DIR$/old_main.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/old_main.h" afterDir="false" />
+    <list default="true" id="936bc293-097a-445b-8294-fc0e1d190978" name="Default Changelist" comment="Can now receive messages from script.js with socketio.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
@@ -82,7 +79,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
+    <property name="settings.editor.selected.configurable" value="CPPToolchains" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -90,6 +87,11 @@
     </key>
   </component>
   <component name="RunManager" selected="PlatformIO.PlatformIO Upload">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Z_DUMMY_TARGET" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ESP32Client" TARGET_NAME="Z_DUMMY_TARGET" CONFIG_NAME="az-delivery-devkit-v4" RUN_TARGET_PROJECT_NAME="ESP32Client" RUN_TARGET_NAME="Z_DUMMY_TARGET">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -128,8 +130,17 @@
       <workItem from="1603280390790" duration="55000" />
       <workItem from="1603354104744" duration="3061000" />
       <workItem from="1605445071006" duration="4601000" />
-      <workItem from="1605550468616" duration="8633000" />
+      <workItem from="1605550468616" duration="8760000" />
+      <workItem from="1605560260732" duration="1919000" />
+      <workItem from="1605562739434" duration="518000" />
     </task>
+    <task id="LOCAL−00001" summary="Can now receive messages from script.js with socketio.">
+      <created>1605559862702</created>
+      <option name="number" value="LOCAL−00001" />
+      <option name="presentableId" value="LOCAL−00001" />
+      <updated>1605559862702</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -140,19 +151,7 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="origin/master" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
@@ -161,7 +160,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Lagt til bibliotek, laget standardfnksjoner for kommunikasjon til og fra ESP32. Basert på socket_example." />
-    <option name="LAST_COMMIT_MESSAGE" value="Lagt til bibliotek, laget standardfnksjoner for kommunikasjon til og fra ESP32. Basert på socket_example." />
+    <MESSAGE value="Can now receive messages from script.js with socketio." />
+    <option name="LAST_COMMIT_MESSAGE" value="Can now receive messages from script.js with socketio." />
   </component>
   <component name="WindowStateProjectService">
     <state x="581" y="329" width="398" height="248" key="Github.ShareDialog" timestamp="1603280400143">
@@ -169,33 +169,34 @@
     </state>
     <state x="581" y="329" key="Github.ShareDialog/0.23.1440.804/-1235.-2137.3840.2137@0.23.1440.804" timestamp="1603280400143" />
     <state x="581" y="330" width="398" height="248" key="Github.ShareDialog/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280369702" />
-    <state width="1237" height="165" key="GridCell.Tab.0.bottom" timestamp="1605559683221">
+    <state width="1238" height="177" key="GridCell.Tab.0.bottom" timestamp="1605562889237">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="165" key="GridCell.Tab.0.bottom/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605559683221" />
+    <state width="1238" height="177" key="GridCell.Tab.0.bottom/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605562889237" />
     <state width="1398" height="207" key="GridCell.Tab.0.bottom/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280371619" />
-    <state width="1237" height="165" key="GridCell.Tab.0.center" timestamp="1605559683221">
+    <state width="1238" height="177" key="GridCell.Tab.0.center" timestamp="1605562889236">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="165" key="GridCell.Tab.0.center/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605559683221" />
+    <state width="1238" height="177" key="GridCell.Tab.0.center/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605562889236" />
     <state width="1398" height="207" key="GridCell.Tab.0.center/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280371617" />
-    <state width="1237" height="165" key="GridCell.Tab.0.left" timestamp="1605559683221">
+    <state width="1238" height="177" key="GridCell.Tab.0.left" timestamp="1605562889236">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="165" key="GridCell.Tab.0.left/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605559683221" />
+    <state width="1238" height="177" key="GridCell.Tab.0.left/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605562889236" />
     <state width="1398" height="207" key="GridCell.Tab.0.left/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280371616" />
-    <state width="1237" height="165" key="GridCell.Tab.0.right" timestamp="1605559683221">
+    <state width="1238" height="177" key="GridCell.Tab.0.right" timestamp="1605562889236">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="165" key="GridCell.Tab.0.right/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605559683221" />
+    <state width="1238" height="177" key="GridCell.Tab.0.right/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605562889236" />
     <state width="1398" height="207" key="GridCell.Tab.0.right/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280371618" />
-    <state x="221" y="64" key="SettingsEditor" timestamp="1603280444868">
-      <screen x="0" y="23" width="1440" height="804" />
-    </state>
-    <state x="221" y="64" key="SettingsEditor/0.23.1440.804/-1235.-2137.3840.2137@0.23.1440.804" timestamp="1603280444868" />
-    <state x="456" y="254" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605447880202">
+    <state x="196" y="0" width="994" height="680" key="SettingsEditor" timestamp="1605562873607">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="456" y="254" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605447880202" />
+    <state x="196" y="0" width="994" height="680" key="SettingsEditor/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605562873607" />
+    <state x="221" y="64" key="SettingsEditor/0.23.1440.804/-1235.-2137.3840.2137@0.23.1440.804" timestamp="1603280444868" />
+    <state x="456" y="254" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605560341900">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="456" y="254" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605560341900" />
   </component>
 </project>
