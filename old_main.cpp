@@ -74,10 +74,6 @@ void checkLEDState() {
     }
 }
 
-void print_to_console(const char * payload, size_t length) {
-    Serial.println("Melding motatt");
-}
-
 void setup() {
     Serial.begin(9600);
     delay(10);
@@ -108,10 +104,7 @@ void setup() {
     webSocket.on("connect", socket_Connected);
     webSocket.on("event", socket_event);
     webSocket.on("status", socket_statusCheck);
-    webSocket.on("test", print_to_console);
     // webSocket.on("state_change_request", socket_pushButton);
-
-    webSocket.emit("Test", "Skriv dinne i JS console");
 
     // Setup Connection
     if (useSSL) {
@@ -128,5 +121,5 @@ void setup() {
 
 void loop() {
     webSocket.loop();
-    // checkLEDState();
+    checkLEDState();
 }
