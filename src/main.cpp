@@ -1,5 +1,20 @@
 #include <WiFi.h>
 #include <SocketIoClient.h>
+#include <iostream>
+#include <cstdio>
+
+
+///////////////////////////////////// TODO - Find out how this works
+#ifdef __cplusplus
+extern "C" {
+#endif
+uint8_t temprature_sens_read();
+#ifdef __cplusplus
+}
+#endif
+uint8_t temprature_sens_read();
+////////////////////////////////
+
 
 /////////////////////////////////////
 ////// USER DEFINED VARIABLES //////
@@ -12,15 +27,29 @@ const char* password = "1F1iRr0A";
 char host[] = "192.168.1.103"; // Socket.IO Server Address
 int port = 3000; // Socket.IO Port Address
 char path[] = "/socket.io/?transport=websocket"; // Socket.IO Base Path
-bool useSSL = false; // Use SSL Authentication
+char emittingSensorValues;
+
+// TODO - Configure for SSL and extra authorization
+bool useSSL = false;               // Use SSL Authentication
 const char * sslFingerprint = "";  // SSL Certificate Fingerprint
-bool useAuth = false; // use Socket.IO Authentication
+bool useAuth = false;              // use Socket.IO Authentication
 const char * serverUsername = "socketIOUsername";
 const char * serverPassword = "socketIOPassword";
 
 /// Pin Settings ///
 int LEDPin = 2;
 int buttonPin = 0;
+
+/// Variables for algorithms ///
+int temp;
+int oldValue = 0;
+int unitID = 001;
+int sensorID = 001;
+char outgoingMessage[50];
+
+
+
+
 
 
 /////////////////////////////////////
@@ -30,53 +59,46 @@ int buttonPin = 0;
 SocketIoClient webSocket;
 WiFiClient client;
 
-bool LEDState = false;
-
 
 void socket_Connected(const char * payload, size_t length) {
     Serial.println("Socket.IO Connected!");
 }
 
-void socket_statusCheck(const char * payload, size_t length) {
-    char* message = "\"OFF\"";
-    if (!LEDState) {
-        message = "\"ON\"";
-    }
-    webSocket.emit("status", message);
+void socket_Disconnected(const char * payload, size_t length) {
+    Serial.println("Socket.IO Disconnected!");
 }
 
-void socket_event(const char * payload, size_t length) {
-    Serial.print("got message: ");
-    Serial.println(payload);
+// Reading internal ESP32 heat sensor and converts to integer
+int readSensor() {
+    // Reading temp value and converts to degrees in celsius
+    float x = (temprature_sens_read() - 32) / 1.8;
+    // Converts data from 2 decimal float to integer
+    int y = (int)(x + 0.5);
+    // Return temp in integer value
+    return y;
 }
 
-/*void socket_pushButton(const char * payload, size_t length) {
-    LEDStateChange(!LEDState);
-}*/
+void sendData (int temperature) {
+    // Checking if the temperature has changed since last loop
+    if (temperature != oldValue) {
+        // Sending the new temperature value along with identifiers as JSON to server
+        sprintf(outgoingMessage, "{\"unitID\": %d, \"sensorID\": %d, \"temperature\": %d}", unitID, sensorID, temperature);
+        webSocket.emit("temperature", outgoingMessage);
 
-void LEDStateChange(const bool newState) {
-    char* message = "\"OFF\"";
-    if (!newState) {
-        message = "\"ON\"";
-    }
-    webSocket.emit("state_change", message);
-    LEDState = newState;
-    Serial.print("LED state has changed: ");
-    Serial.println(message);
-}
+        // Troubleshooting console printing
+        std::printf("Emitted message: %s \n", outgoingMessage);
 
-void checkLEDState() {
-    digitalWrite(LEDPin, LEDState);
-    const bool newState = digitalRead(buttonPin); // See if button is physically pushed
-    if (!newState) {
-        LEDStateChange(!LEDState);
-        delay(500);
+        // Sets new 'oldValue', for next comparison
+        oldValue = temperature;
+    } else {
+        return;
     }
 }
 
+// Testing received message
 void print_to_console(const char * payload, size_t length) {
-    Serial.println("Melding motatt:" );
-    Serial.print(payload);
+    Serial.print("Melding motatt:" );
+    Serial.println(payload);
 }
 
 void setup() {
@@ -87,8 +109,6 @@ void setup() {
     pinMode(buttonPin, INPUT);
 
     // We start by connecting to a WiFi network
-
-    Serial.println();
     Serial.println();
     Serial.print("Connecting to ");
     Serial.println(ssid);
@@ -105,15 +125,11 @@ void setup() {
     Serial.println("IP address: ");
     Serial.println(WiFi.localIP());
 
-    // Setup 'on' listen events
-    webSocket.on("connect", socket_Connected);
-    webSocket.on("event", socket_event);
-    webSocket.on("status", socket_statusCheck);
-    webSocket.on("test", print_to_console);
-    // webSocket.on("state_change_request", socket_pushButton);
 
-    // Fungerende sende linje
-    webSocket.emit("Test", "\"this is a plain string\"");
+    // Listen events for incoming data
+    webSocket.on("connect", socket_Connected);
+    webSocket.on("disconnect", socket_Disconnected);
+    webSocket.on("test", print_to_console);
 
     // Setup Connection
     if (useSSL) {
@@ -128,7 +144,14 @@ void setup() {
     }
 }
 
+
 void loop() {
+    delay(1000);
+    temp = readSensor();
+    sendData(temp);
+    Serial.println(temp);
+
+
+    // sendSensorData();
     webSocket.loop();
-    // checkLEDState();
 }
