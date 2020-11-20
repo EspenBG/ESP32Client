@@ -90,7 +90,7 @@ void SocketIoClient::on(const char* event, std::function<void (const char * payl
 }
 
 void SocketIoClient::emit(const char* event, const char * payload) {
-	String msg = String("42/robot[\"");
+	String msg = String("42[\"");
 	msg += event;
 	msg += "\"";
 	if(payload) {
