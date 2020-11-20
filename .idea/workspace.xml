@@ -27,14 +27,13 @@
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:wip" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </select>
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
-      <config projectName="ESP32Client" targetName="Z_DUMMY_TARGET" />
       <config projectName="ESP32Client" targetName="Production" />
+      <config projectName="ESP32Client" targetName="Z_DUMMY_TARGET" />
       <config projectName="ESP32Client" targetName="Debug" />
     </generated>
   </component>
@@ -44,8 +43,24 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="936bc293-097a-445b-8294-fc0e1d190978" name="Default Changelist" comment="Can now receive and send messages">
+    <list default="true" id="936bc293-097a-445b-8294-fc0e1d190978" name="Default Changelist" comment="Reads internal temperature and sends it in JSON format">
+      <change afterPath="$PROJECT_DIR$/lib/analogWrite/analogWrite.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/analogWrite/analogWrite.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/SocketIo/SocketIoClient.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SocketIO/SocketIoClient.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/SocketIo/SocketIoClient.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SocketIO/SocketIoClient.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/SocketIo/WebSockets.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SocketIO/WebSockets.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/SocketIo/WebSockets.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SocketIO/WebSockets.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/SocketIo/WebSocketsClient.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SocketIO/WebSocketsClient.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/SocketIo/WebSocketsClient.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SocketIO/WebSocketsClient.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/SocketIo/libb64/AUTHORS" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SocketIO/libb64/AUTHORS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/SocketIo/libb64/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SocketIO/libb64/LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/SocketIo/libb64/cdecode.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SocketIO/libb64/cdecode.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/SocketIo/libb64/cdecode_inc.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SocketIO/libb64/cdecode_inc.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/SocketIo/libb64/cencode.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SocketIO/libb64/cencode.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/SocketIo/libb64/cencode_inc.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SocketIO/libb64/cencode_inc.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/SocketIo/libsha1/libsha1.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SocketIO/libsha1/libsha1.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/SocketIo/libsha1/libsha1.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SocketIO/libsha1/libsha1.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -74,7 +89,9 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.advertisement.text.has.clang-format" value="true" />
     <property name="cf.first.check.clang-format" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
@@ -83,17 +100,21 @@
     <property name="settings.editor.selected.configurable" value="CPPToolchains" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\tony_\CLionProjects\ESP32Client\lib" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\tony_\CLionProjects\ESP32Client\lib" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunManager" selected="PlatformIO.PlatformIO Upload">
-    <configuration name="Z_DUMMY_TARGET" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ESP32Client" TARGET_NAME="Z_DUMMY_TARGET" CONFIG_NAME="az-delivery-devkit-v4" RUN_TARGET_PROJECT_NAME="ESP32Client" RUN_TARGET_NAME="Z_DUMMY_TARGET">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="Z_DUMMY_TARGET" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ESP32Client" TARGET_NAME="Z_DUMMY_TARGET" CONFIG_NAME="az-delivery-devkit-v4" RUN_TARGET_PROJECT_NAME="ESP32Client" RUN_TARGET_NAME="Z_DUMMY_TARGET">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -134,7 +155,10 @@
       <workItem from="1605550468616" duration="8760000" />
       <workItem from="1605560260732" duration="1919000" />
       <workItem from="1605562739434" duration="929000" />
-      <workItem from="1605646863709" duration="12707000" />
+      <workItem from="1605646863709" duration="12861000" />
+      <workItem from="1605698248125" duration="10079000" />
+      <workItem from="1605708550265" duration="653000" />
+      <workItem from="1605709221161" duration="11678000" />
     </task>
     <task id="LOCAL−00001" summary="Can now receive messages from script.js with socketio.">
       <created>1605559862702</created>
@@ -148,7 +172,13 @@
       <option name="presentableId" value="LOCAL−00002" />
       <updated>1605563448812</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL−00003" summary="Reads internal temperature and sends it in JSON format">
+      <created>1605659680604</created>
+      <option name="number" value="LOCAL−00003" />
+      <option name="presentableId" value="LOCAL−00003" />
+      <updated>1605659680604</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -195,48 +225,66 @@
     <MESSAGE value="Lagt til bibliotek, laget standardfnksjoner for kommunikasjon til og fra ESP32. Basert på socket_example." />
     <MESSAGE value="Can now receive messages from script.js with socketio." />
     <MESSAGE value="Can now receive and send messages" />
-    <option name="LAST_COMMIT_MESSAGE" value="Can now receive and send messages" />
+    <MESSAGE value="Reads internal temperature and sends it in JSON format" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reads internal temperature and sends it in JSON format" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="-51" y="-2067" width="1727" height="1215" key="DiffContextDialog" timestamp="1605701237102">
+      <screen x="-673" y="-2160" width="2560" height="1400" />
+    </state>
+    <state x="-51" y="-2067" width="1727" height="1215" key="DiffContextDialog/0.0.1280.680/-673.-2160.2560.1400@-673.-2160.2560.1400" timestamp="1605701237102" />
     <state x="581" y="329" width="398" height="248" key="Github.ShareDialog" timestamp="1603280400143">
       <screen x="0" y="23" width="1440" height="804" />
     </state>
     <state x="581" y="329" key="Github.ShareDialog/0.23.1440.804/-1235.-2137.3840.2137@0.23.1440.804" timestamp="1603280400143" />
     <state x="581" y="330" width="398" height="248" key="Github.ShareDialog/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280369702" />
-    <state width="1238" height="167" key="GridCell.Tab.0.bottom" timestamp="1605658861181">
+    <state width="1236" height="151" key="GridCell.Tab.0.bottom" timestamp="1605745908060">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1238" height="167" key="GridCell.Tab.0.bottom/-1920.0.1920.1000/2560.0.1080.1880/0.0.1280.680@0.0.1280.680" timestamp="1605658861181" />
-    <state width="1238" height="176" key="GridCell.Tab.0.bottom/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605563670341" />
+    <state width="1238" height="167" key="GridCell.Tab.0.bottom/-1920.0.1920.1000/2560.0.1080.1880/0.0.1280.680@0.0.1280.680" timestamp="1605659735218" />
+    <state width="1236" height="151" key="GridCell.Tab.0.bottom/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605745908060" />
+    <state width="1238" height="261" key="GridCell.Tab.0.bottom/0.0.1280.680/-673.-2160.2560.1400@-673.-2160.2560.1400" timestamp="1605711830490" />
     <state width="1398" height="207" key="GridCell.Tab.0.bottom/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280371619" />
-    <state width="1238" height="167" key="GridCell.Tab.0.center" timestamp="1605658861181">
+    <state width="1236" height="151" key="GridCell.Tab.0.center" timestamp="1605745908060">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1238" height="167" key="GridCell.Tab.0.center/-1920.0.1920.1000/2560.0.1080.1880/0.0.1280.680@0.0.1280.680" timestamp="1605658861181" />
-    <state width="1238" height="176" key="GridCell.Tab.0.center/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605563670341" />
+    <state width="1238" height="167" key="GridCell.Tab.0.center/-1920.0.1920.1000/2560.0.1080.1880/0.0.1280.680@0.0.1280.680" timestamp="1605659735217" />
+    <state width="1236" height="151" key="GridCell.Tab.0.center/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605745908060" />
+    <state width="1238" height="261" key="GridCell.Tab.0.center/0.0.1280.680/-673.-2160.2560.1400@-673.-2160.2560.1400" timestamp="1605711830490" />
     <state width="1398" height="207" key="GridCell.Tab.0.center/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280371617" />
-    <state width="1238" height="167" key="GridCell.Tab.0.left" timestamp="1605658861181">
+    <state width="1236" height="151" key="GridCell.Tab.0.left" timestamp="1605745908060">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1238" height="167" key="GridCell.Tab.0.left/-1920.0.1920.1000/2560.0.1080.1880/0.0.1280.680@0.0.1280.680" timestamp="1605658861181" />
-    <state width="1238" height="176" key="GridCell.Tab.0.left/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605563670341" />
+    <state width="1238" height="167" key="GridCell.Tab.0.left/-1920.0.1920.1000/2560.0.1080.1880/0.0.1280.680@0.0.1280.680" timestamp="1605659735217" />
+    <state width="1236" height="151" key="GridCell.Tab.0.left/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605745908060" />
+    <state width="1238" height="261" key="GridCell.Tab.0.left/0.0.1280.680/-673.-2160.2560.1400@-673.-2160.2560.1400" timestamp="1605711830489" />
     <state width="1398" height="207" key="GridCell.Tab.0.left/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280371616" />
-    <state width="1238" height="167" key="GridCell.Tab.0.right" timestamp="1605658861181">
+    <state width="1236" height="151" key="GridCell.Tab.0.right" timestamp="1605745908060">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1238" height="167" key="GridCell.Tab.0.right/-1920.0.1920.1000/2560.0.1080.1880/0.0.1280.680@0.0.1280.680" timestamp="1605658861181" />
-    <state width="1238" height="176" key="GridCell.Tab.0.right/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605563670341" />
+    <state width="1238" height="167" key="GridCell.Tab.0.right/-1920.0.1920.1000/2560.0.1080.1880/0.0.1280.680@0.0.1280.680" timestamp="1605659735218" />
+    <state width="1236" height="151" key="GridCell.Tab.0.right/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605745908060" />
+    <state width="1238" height="261" key="GridCell.Tab.0.right/0.0.1280.680/-673.-2160.2560.1400@-673.-2160.2560.1400" timestamp="1605711830490" />
     <state width="1398" height="207" key="GridCell.Tab.0.right/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280371618" />
     <state x="196" y="0" width="994" height="680" key="SettingsEditor" timestamp="1605562873607">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="196" y="0" width="994" height="680" key="SettingsEditor/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605562873607" />
     <state x="221" y="64" key="SettingsEditor/0.23.1440.804/-1235.-2137.3840.2137@0.23.1440.804" timestamp="1603280444868" />
-    <state x="456" y="254" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605652761651">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state x="-439" y="-1719" key="Vcs.Push.Dialog.v2" timestamp="1605701021728">
+      <screen x="-673" y="-2160" width="2560" height="1400" />
+    </state>
+    <state x="-439" y="-1719" key="Vcs.Push.Dialog.v2/0.0.1280.680/-673.-2160.2560.1400@-673.-2160.2560.1400" timestamp="1605701021728" />
+    <state x="-241" y="-1718" key="VcsDiffUtil.ChangesDialog" timestamp="1605701224480">
+      <screen x="-673" y="-2160" width="2560" height="1400" />
+    </state>
+    <state x="-241" y="-1718" key="VcsDiffUtil.ChangesDialog/0.0.1280.680/-673.-2160.2560.1400@-673.-2160.2560.1400" timestamp="1605701224480" />
+    <state x="239" y="-1637" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605708207168">
+      <screen x="-673" y="-2160" width="2560" height="1400" />
     </state>
     <state x="456" y="254" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1920.0.1920.1000/2560.0.1080.1880/0.0.1280.680@0.0.1280.680" timestamp="1605652761651" />
     <state x="456" y="254" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605563353584" />
+    <state x="239" y="-1637" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.680/-673.-2160.2560.1400@-673.-2160.2560.1400" timestamp="1605708207168" />
     <state x="366" y="125" key="refactoring.ChangeSignatureDialog" timestamp="1605650117784">
       <screen x="0" y="0" width="1280" height="680" />
     </state>

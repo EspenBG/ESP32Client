@@ -27,7 +27,7 @@ const char* password = "1F1iRr0A";
 char host[] = "192.168.1.103"; // Socket.IO Server Address
 int port = 3000; // Socket.IO Port Address
 char path[] = "/socket.io/?transport=websocket"; // Socket.IO Base Path
-char emittingSensorValues;
+char emittedSensorValues;
 
 // TODO - Configure for SSL and extra authorization
 bool useSSL = false;               // Use SSL Authentication
@@ -42,19 +42,17 @@ int buttonPin = 0;
 
 /// Variables for algorithms ///
 int temp;
+int tempSetpoint;
 int oldValue = 0;
 int unitID = 001;
 int sensorID = 001;
-char outgoingMessage[50];
-
-
-
+char outgoingMessage[150];
 
 
 
 /////////////////////////////////////
-////// ESP32 Socket.IO Client //////
-///////////////////////////////////
+////// ESP32 Socket.IO Client ///////
+/////////////////////////////////////
 
 SocketIoClient webSocket;
 WiFiClient client;
@@ -68,6 +66,7 @@ void socket_Disconnected(const char * payload, size_t length) {
     Serial.println("Socket.IO Disconnected!");
 }
 
+// TODO - Double check if computation to celsius is correct
 // Reading internal ESP32 heat sensor and converts to integer
 int readSensor() {
     // Reading temp value and converts to degrees in celsius
@@ -78,15 +77,25 @@ int readSensor() {
     return y;
 }
 
+
+// TODO - Figure out how to send send data as JSON - more specifically: find out how to send quotations marks
 void sendData (int temperature) {
     // Checking if the temperature has changed since last loop
     if (temperature != oldValue) {
         // Sending the new temperature value along with identifiers as JSON to server
-        sprintf(outgoingMessage, "{\"unitID\": %d, \"sensorID\": %d, \"temperature\": %d}", unitID, sensorID, temperature);
-        webSocket.emit("temperature", outgoingMessage);
+        std::sprintf(outgoingMessage, "{\"unitID\":%d,\"sensorID\":%d,\"temperature\":%d}", unitID, sensorID, temperature);
+        //String newString = "{\"unitID\":" + unitID + "\"sensorID\":" +  sensorID+  "\"temperature\":" + temperature;
+        //String newString = "\"sensorID\":" +  sensorID;
+        //const char* newChar =  "\"sensorID\":" +  sensorID;
+        Serial.println(outgoingMessage);
+        // const char* newvar =outgoingMessage;
+        //webSocket.emit("temperature", outgoingMessage);
+        webSocket.emit("test", outgoingMessage);
+        //webSocket.emit("temperature", outgoingMessage);
+        // sprintf(resultstr, "{\"temp1\":%d,\"temp2\":%d}", temp1, temp2);
 
         // Troubleshooting console printing
-        std::printf("Emitted message: %s \n", outgoingMessage);
+        //std::printf("\n", outgoingMessage);
 
         // Sets new 'oldValue', for next comparison
         oldValue = temperature;
@@ -100,6 +109,10 @@ void print_to_console(const char * payload, size_t length) {
     Serial.print("Melding motatt:" );
     Serial.println(payload);
 }
+
+/*void setTemperatureSetpoint (const char * payload, size_t length) {
+    tempSetpoint =
+}*/
 
 void setup() {
     Serial.begin(9600);
@@ -129,7 +142,8 @@ void setup() {
     // Listen events for incoming data
     webSocket.on("connect", socket_Connected);
     webSocket.on("disconnect", socket_Disconnected);
-    webSocket.on("test", print_to_console);
+    // webSocket.on("temperatureSetpoint", setTemperatureSetpoint);
+
 
     // Setup Connection
     if (useSSL) {
@@ -146,10 +160,10 @@ void setup() {
 
 
 void loop() {
-    delay(1000);
+    //delay(1000);
     temp = readSensor();
     sendData(temp);
-    Serial.println(temp);
+    //Serial.println(temp);
 
 
     // sendSensorData();
