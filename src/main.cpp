@@ -20,13 +20,17 @@ uint8_t temprature_sens_read();
 ////// USER DEFINED VARIABLES //////
 ///////////////////////////////////
 /// WIFI Settings ///
-const char* ssid     = "Tony-Wifi";
-const char* password = "1F1iRr0A";
+//const char* ssid     = "Tony-Wifi";
+//const char* password = "1F1iRr0A";
+
+const char* ssid     = "Zhone_8BF7";
+const char* password = "znid305147639";
 
 /// Socket.IO Settings ///
-char host[] = "192.168.1.103"; // Socket.IO Server Address
+char host[] = "192.168.1.12"; // Socket.IO Server Address
 int port = 3000; // Socket.IO Port Address
 char path[] = "/socket.io/?transport=websocket"; // Socket.IO Base Path
+//char path[] = "/robot";
 char emittedSensorValues;
 
 // TODO - Configure for SSL and extra authorization
