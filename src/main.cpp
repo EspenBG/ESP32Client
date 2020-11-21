@@ -38,20 +38,20 @@ bool useSSL = false;               // Use SSL Authentication
 const char * sslFingerprint = "";  // SSL Certificate Fingerprint
 bool useAuth = false;              // use Socket.IO Authentication
 const char * serverUsername = "socketIOUsername";
-const char * serverPassword = "socketIOPassword";
+const String serverPassword = "socketIOPassword";
 
 /// Pin Settings ///
-int LEDPin = 2;
+#define LEDPin 2
 int buttonPin = 0;
 
 /// Variables for algorithms ///
+bool authenticated = false;
 int temp;
 int tempSetpoint;
 int oldValue = 0;
 int unitID = 001;
 int sensorID = 001;
 char outgoingMessage[150];
-
 
 
 /////////////////////////////////////
@@ -62,8 +62,39 @@ SocketIoClient webSocket;
 WiFiClient client;
 
 
+void response (const char * payload, size_t length) {
+    if (payload == "true") {
+        authenticated = true;
+    } else {
+        authenticated = false;
+    }
+}
+
+bool authentication(const String password) {
+    webSocket.emit("authentication", password.c_str());
+    webSocket.on("authentication", response);
+
+    Serial.println("Waiting for server to respond if authentication is approved");
+    while (authenticated != true) {
+        delay(50);
+        Serial.print(".");
+    }
+    return true;
+}
+
 void socket_Connected(const char * payload, size_t length) {
     Serial.println("Socket.IO Connected!");
+
+    Serial.println("Using username and password to authenticate with server");
+
+    // Connecting to the server with username and password
+    while (authentication(serverPassword) != true) {
+        delay(500);
+        Serial.print(".");
+    }
+
+    Serial.println("Authentication successful!");
+    // If authentication succeeded this function exits
 }
 
 void socket_Disconnected(const char * payload, size_t length) {
@@ -87,14 +118,17 @@ void sendData (int temperature) {
     // Checking if the temperature has changed since last loop
     if (temperature != oldValue) {
         // Sending the new temperature value along with identifiers as JSON to server
-        std::sprintf(outgoingMessage, "{\"unitID\":%d,\"sensorID\":%d,\"temperature\":%d}", unitID, sensorID, temperature);
-        //String newString = "{\"unitID\":" + unitID + "\"sensorID\":" +  sensorID+  "\"temperature\":" + temperature;
-        //String newString = "\"sensorID\":" +  sensorID;
-        //const char* newChar =  "\"sensorID\":" +  sensorID;
+        // std::sprintf(outgoingMessage, "{\"unitID\":%d,\"sensorID\":%d,\"temperature\":%d}", unitID, sensorID, temperature);
+        String temperatureKey = "temperature";
+        String temperatureToSend = String(temperature);
+
+        String JSONobject = String("{\"" + String(String("hallo")) + "\":\"" + String(73) + "\"}");
+        // String JSONobject2 = String("{\"" + String(temperatureKey) + "\":\"" + temperatureToSend + "\"}");
+
+
         Serial.println(outgoingMessage);
-        // const char* newvar =outgoingMessage;
         //webSocket.emit("temperature", outgoingMessage);
-        webSocket.emit("test", outgoingMessage);
+        // webSocket.emit("test", JSONobject10.c_str());
         //webSocket.emit("temperature", outgoingMessage);
         // sprintf(resultstr, "{\"temp1\":%d,\"temp2\":%d}", temp1, temp2);
 
@@ -156,11 +190,12 @@ void setup() {
         webSocket.begin(host, port, path);
     }
 
-    // Handle Authentication
-    if (useAuth) {
-        webSocket.setAuthorization(serverUsername, serverPassword);
-    }
+    // Handle Authentication- TODO - Should i use this authentication method???
+    //if (useAuth) {
+    //    webSocket.setAuthorization(serverUsername, serverPassword);
+    //}
 }
+
 
 
 void loop() {
