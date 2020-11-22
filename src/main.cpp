@@ -45,8 +45,10 @@ const String serverPassword = "socketIOPassword";
 int buttonPin = 0;
 
 /// Variables for algorithms ///
-int temp;
-int tempSetpoint;
+bool surveillance_mode = false;
+bool active_regulation = false;
+int CPUtemp;
+int temperature_setpoint;
 int oldValue = 0;
 const String robotID = "001";
 const String sensorID = "001";
@@ -85,18 +87,28 @@ void authenticate_feedback (const char * payload, size_t length) {
     }
 }
 
-void decide_robot_function (const char * payload, size_t length) {
 
+void decide_robot_function(const char *payload, size_t length) {
+    // TODO - Decode the JSON to a single variable that represents the sensor value
+
+    // Deciding robot operation based on value sent
+    if (payload == "surveillance-mode") {
+        surveillance_mode = true;
+    } else {
+        active_regulation = true;
+        temperature_setpoint = atoi(payload);
+    }
 }
+
 
 // TODO - Double check if computation to celsius is correct
 // Reading internal ESP32 heat sensor and converts to integer
 int readCPUTemp() {
-    // Reading temp value and converts to degrees in celsius
+    // Reading CPUtemp value and converts to degrees in celsius
     float x = (temprature_sens_read() - 32) / 1.8;
     // Converts data from 2 decimal float to integer
     x = (int)(x + 0.5);
-    // Return temp in integer value
+    // Return CPUtemp in integer value
     return x;
 }
 
@@ -108,7 +120,7 @@ void sendData (int temperature) {
     // Checking if the temperature has changed since last loop
     if (temperature != oldValue) {
         // Sending the new temperature value along with identifiers as JSON to server
-        // std::sprintf(outgoingMessage, "{\"unitID\":%d,\"sensorID\":%d,\"temperature\":%d}", unitID, sensorID, temperature);
+        // std::sprintf(outgoingMessage, "{\"robotID\":%d,\"sensorID\":%d,\"temperature\":%d}", robotID, sensorID, temperature);
         String temperatureKey = "temperature";
         String temperatureToSend = String(temperature);
 
@@ -130,12 +142,6 @@ void sendData (int temperature) {
     } else {
         return;
     }
-}
-
-// Testing received message
-void print_to_console(const char * payload, size_t length) {
-    Serial.print("Melding motatt:" );
-    Serial.println(payload);
 }
 
 
@@ -186,11 +192,20 @@ void setup() {
 
 
 void loop() {
-    temp = readCPUTemp();
-    //sendData(temp);
-    //Serial.println(temp);
+    // Reads temperature in CPU and stores it as integer
+    CPUtemp = readCPUTemp();
 
+    // Depending on mode selected from website, activate appropriate mode and emit value to server
+    if (surveillance_mode) {
+        //webSocket.emit("sensorData", )
+    } else if (active_regulation) {
+        //webSocket.emit("sensorData", )
+        if (CPUtemp < temperature_setpoint) {
+            digitalWrite(LEDPin, HIGH);
+        } else  {
+            digitalWrite(LEDPin, LOW);
+        }
+    }
 
-    // sendSensorData();
     webSocket.loop();
 }
