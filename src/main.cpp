@@ -45,12 +45,11 @@ const String serverPassword = "socketIOPassword";
 int buttonPin = 0;
 
 /// Variables for algorithms ///
-bool authenticated = false;
 int temp;
 int tempSetpoint;
 int oldValue = 0;
-int unitID = 001;
-int sensorID = 001;
+const String robotID = "001";
+const String sensorID = "001";
 char outgoingMessage[150];
 
 
@@ -62,58 +61,49 @@ SocketIoClient webSocket;
 WiFiClient client;
 
 
-void response (const char * payload, size_t length) {
-    if (payload == "true") {
-        authenticated = true;
-    } else {
-        authenticated = false;
-    }
-}
-
-bool authentication(const String password) {
-    webSocket.emit("authentication", password.c_str());
-    webSocket.on("authentication", response);
-
-    Serial.println("Waiting for server to respond if authentication is approved");
-    while (authenticated != true) {
-        delay(50);
-        Serial.print(".");
-    }
-    return true;
-}
-
 void socket_Connected(const char * payload, size_t length) {
     Serial.println("Socket.IO Connected!");
 
-    Serial.println("Using username and password to authenticate with server");
+    Serial.println("Sending password to server for authentication");
 
-    // Connecting to the server with username and password
-    while (authentication(serverPassword) != true) {
-        delay(500);
-        Serial.print(".");
-    }
-
-    Serial.println("Authentication successful!");
-    // If authentication succeeded this function exits
+    // Sending password to server for authentication
+    webSocket.emit("authentication", serverPassword.c_str());
 }
 
 void socket_Disconnected(const char * payload, size_t length) {
     Serial.println("Socket.IO Disconnected!");
 }
 
+void authenticate_feedback (const char * payload, size_t length) {
+    if (payload == "true") {
+        Serial.println("Authentication successful!");
+        webSocket.emit("robotID", robotID.c_str());
+    } else if (payload == "false") {
+        Serial.println("Authentication unsuccessful, wrong password");
+    } else {
+        Serial.println("Unrecognized feedback / corrupted payload");
+    }
+}
+
+void decide_robot_function (const char * payload, size_t length) {
+
+}
+
 // TODO - Double check if computation to celsius is correct
 // Reading internal ESP32 heat sensor and converts to integer
-int readSensor() {
+int readCPUTemp() {
     // Reading temp value and converts to degrees in celsius
     float x = (temprature_sens_read() - 32) / 1.8;
     // Converts data from 2 decimal float to integer
-    int y = (int)(x + 0.5);
+    x = (int)(x + 0.5);
     // Return temp in integer value
-    return y;
+    return x;
 }
 
 
 // TODO - Figure out how to send send data as JSON - more specifically: find out how to send quotations marks
+// Because of problems with sending JSON keys in string with ", we are now sending with 0 in front of each key
+// to fix this issue, server is changed to interpret it correctly
 void sendData (int temperature) {
     // Checking if the temperature has changed since last loop
     if (temperature != oldValue) {
@@ -122,11 +112,11 @@ void sendData (int temperature) {
         String temperatureKey = "temperature";
         String temperatureToSend = String(temperature);
 
-        String JSONobject = String("{\"" + String(String("hallo")) + "\":\"" + String(73) + "\"}");
+        // String JSONobject = String("{\"" + String(String("hallo")) + "\":\"" + String(73) + "\"}");
         // String JSONobject2 = String("{\"" + String(temperatureKey) + "\":\"" + temperatureToSend + "\"}");
 
 
-        Serial.println(outgoingMessage);
+        // Serial.println(outgoingMessage);
         //webSocket.emit("temperature", outgoingMessage);
         // webSocket.emit("test", JSONobject10.c_str());
         //webSocket.emit("temperature", outgoingMessage);
@@ -148,16 +138,12 @@ void print_to_console(const char * payload, size_t length) {
     Serial.println(payload);
 }
 
-/*void setTemperatureSetpoint (const char * payload, size_t length) {
-    tempSetpoint =
-}*/
 
 void setup() {
     Serial.begin(9600);
     delay(10);
 
     pinMode(LEDPin, OUTPUT);
-    pinMode(buttonPin, INPUT);
 
     // We start by connecting to a WiFi network
     Serial.println();
@@ -180,7 +166,8 @@ void setup() {
     // Listen events for incoming data
     webSocket.on("connect", socket_Connected);
     webSocket.on("disconnect", socket_Disconnected);
-    // webSocket.on("temperatureSetpoint", setTemperatureSetpoint);
+    webSocket.on("authentication", authenticate_feedback);
+    webSocket.on("setpoints", decide_robot_function);
 
 
     // Setup Connection
@@ -190,7 +177,7 @@ void setup() {
         webSocket.begin(host, port, path);
     }
 
-    // Handle Authentication- TODO - Should i use this authentication method???
+    // Handle Authentication
     //if (useAuth) {
     //    webSocket.setAuthorization(serverUsername, serverPassword);
     //}
@@ -199,9 +186,8 @@ void setup() {
 
 
 void loop() {
-    //delay(1000);
-    temp = readSensor();
-    sendData(temp);
+    temp = readCPUTemp();
+    //sendData(temp);
     //Serial.println(temp);
 
 
