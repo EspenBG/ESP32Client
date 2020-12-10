@@ -32,18 +32,228 @@
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
-      <config projectName="ESP32Client" targetName="Z_DUMMY_TARGET" />
       <config projectName="ESP32Client" targetName="Production" />
+      <config projectName="ESP32Client" targetName="Z_DUMMY_TARGET" />
       <config projectName="ESP32Client" targetName="Debug" />
     </generated>
   </component>
   <component name="CMakeSettings">
     <configurations>
-      <configuration PROFILE_NAME="az-delivery-devkit-v4" CONFIG_NAME="az-delivery-devkit-v4" />
+      <configuration PROFILE_NAME="az-delivery-devkit-v4" CONFIG_NAME="az-delivery-devkit-v4" ENABLED="true" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="936bc293-097a-445b-8294-fc0e1d190978" name="Default Changelist" comment="Started on functions for setpoint reading and moduses.">
+    <list default="true" id="936bc293-097a-445b-8294-fc0e1d190978" name="Default Changelist" comment="Small changes">
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/ArduinoJson.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/CHANGELOG.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/CONTRIBUTING.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/LICENSE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/SUPPORT.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/appveyor.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/banner.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/examples/JsonConfigFile/JsonConfigFile.ino" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/examples/JsonGeneratorExample/JsonGeneratorExample.ino" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/examples/JsonHttpClient/JsonHttpClient.ino" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/examples/JsonParserExample/JsonParserExample.ino" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/examples/JsonServer/JsonServer.ino" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/examples/JsonUdpBeacon/JsonUdpBeacon.ino" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/examples/ProgmemExample/ProgmemExample.ino" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/examples/StringExample/StringExample.ino" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/fuzzing/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/fuzzing/fuzzer.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/fuzzing/my_corpus/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/fuzzing/seed_corpus/Comments.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/fuzzing/seed_corpus/EmptyArray.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/fuzzing/seed_corpus/EmptyObject.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/fuzzing/seed_corpus/ExcessiveNesting.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/fuzzing/seed_corpus/Numbers.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/fuzzing/seed_corpus/OpenWeatherMap.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/fuzzing/seed_corpus/Strings.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/fuzzing/seed_corpus/WeatherUnderground.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/keywords.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/library.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/library.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/scripts/build-arduino-package.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/scripts/build-single-header.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/scripts/create-build-envs.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/scripts/oss-fuzz/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/scripts/oss-fuzz/Vagrantfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/scripts/publish-particle-library.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/scripts/travis/arduino.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/scripts/travis/cmake.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/scripts/travis/coverage.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/scripts/travis/fuzz.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/scripts/travis/platformio.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Configuration.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Data/Encoding.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Data/JsonBufferAllocated.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Data/JsonFloat.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Data/JsonInteger.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Data/JsonVariantAs.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Data/JsonVariantContent.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Data/JsonVariantDefault.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Data/JsonVariantType.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Data/List.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Data/ListConstIterator.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Data/ListIterator.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Data/ListNode.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Data/NonCopyable.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Data/ReferenceType.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Data/ValueSaver.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Deserialization/Comments.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Deserialization/JsonParser.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Deserialization/JsonParserImpl.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Deserialization/StringWriter.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/DynamicJsonBuffer.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/JsonArray.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/JsonArrayImpl.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/JsonArraySubscript.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/JsonBuffer.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/JsonBufferBase.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/JsonBufferImpl.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/JsonObject.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/JsonObjectImpl.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/JsonObjectSubscript.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/JsonPair.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/JsonVariant.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/JsonVariantBase.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/JsonVariantCasts.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/JsonVariantComparisons.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/JsonVariantImpl.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/JsonVariantOr.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/JsonVariantSubscripts.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Polyfills/alias_cast.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Polyfills/attributes.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Polyfills/ctype.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Polyfills/isFloat.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Polyfills/isInteger.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Polyfills/math.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Polyfills/parseFloat.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Polyfills/parseInteger.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/RawJson.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Serialization/DummyPrint.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Serialization/DynamicStringBuilder.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Serialization/FloatParts.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Serialization/IndentedPrint.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Serialization/JsonPrintable.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Serialization/JsonSerializer.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Serialization/JsonSerializerImpl.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Serialization/JsonWriter.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Serialization/Prettyfier.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Serialization/StaticStringBuilder.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/Serialization/StreamPrintAdapter.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/StaticJsonBuffer.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/StringTraits/ArduinoStream.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/StringTraits/CharPointer.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/StringTraits/FlashString.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/StringTraits/StdStream.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/StringTraits/StdString.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/StringTraits/StringTraits.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/TypeTraits/EnableIf.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/TypeTraits/FloatTraits.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/TypeTraits/IsArray.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/TypeTraits/IsBaseOf.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/TypeTraits/IsChar.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/TypeTraits/IsConst.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/TypeTraits/IsFloatingPoint.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/TypeTraits/IsIntegral.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/TypeTraits/IsSame.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/TypeTraits/IsSignedIntegral.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/TypeTraits/IsUnsignedIntegral.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/TypeTraits/IsVariant.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/TypeTraits/RemoveConst.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/TypeTraits/RemoveReference.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/compatibility.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/src/ArduinoJson/version.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/DynamicJsonBuffer/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/DynamicJsonBuffer/alloc.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/DynamicJsonBuffer/createArray.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/DynamicJsonBuffer/createObject.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/DynamicJsonBuffer/no_memory.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/DynamicJsonBuffer/size.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/DynamicJsonBuffer/startString.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/IntegrationTests/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/IntegrationTests/gbathree.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/IntegrationTests/round_trip.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonArray/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonArray/add.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonArray/basics.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonArray/copyFrom.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonArray/copyTo.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonArray/invalid.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonArray/iterator.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonArray/prettyPrintTo.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonArray/printTo.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonArray/remove.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonArray/set.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonArray/size.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonArray/subscript.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonBuffer/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonBuffer/nested.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonBuffer/nestingLimit.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonBuffer/parse.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonBuffer/parseArray.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonBuffer/parseObject.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonObject/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonObject/basics.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonObject/containsKey.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonObject/get.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonObject/invalid.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonObject/iterator.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonObject/prettyPrintTo.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonObject/printTo.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonObject/remove.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonObject/set.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonObject/size.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonObject/subscript.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonVariant/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonVariant/as.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonVariant/compare.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonVariant/copy.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonVariant/is.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonVariant/or.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonVariant/printTo.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonVariant/set_get.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonVariant/subscript.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonVariant/success.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonVariant/undefined.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonWriter/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonWriter/writeFloat.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/JsonWriter/writeString.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/Misc/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/Misc/FloatParts.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/Misc/StringBuilder.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/Misc/StringTraits.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/Misc/TypeTraits.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/Misc/deprecated.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/Misc/empty.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/Misc/std_stream.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/Misc/std_string.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/Misc/unsigned_char.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/Misc/version.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/Misc/vla.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/Polyfills/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/Polyfills/isFloat.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/Polyfills/isInteger.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/Polyfills/parseFloat.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/Polyfills/parseInteger.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/StaticJsonBuffer/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/StaticJsonBuffer/alloc.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/StaticJsonBuffer/createArray.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/StaticJsonBuffer/createObject.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/StaticJsonBuffer/parseArray.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/StaticJsonBuffer/parseObject.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/StaticJsonBuffer/size.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/test/StaticJsonBuffer/startString.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/third-party/catch/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/third-party/catch/catch.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ArduinoJson/third-party/catch/catch.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
@@ -83,6 +293,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="CMakeSettings" />
   </component>
   <component name="RecentsManager">
@@ -95,22 +306,22 @@
     </key>
   </component>
   <component name="RunManager" selected="PlatformIO.PlatformIO Upload">
-    <configuration name="Z_DUMMY_TARGET" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ESP32Client" TARGET_NAME="Z_DUMMY_TARGET" CONFIG_NAME="az-delivery-devkit-v4" RUN_TARGET_PROJECT_NAME="ESP32Client" RUN_TARGET_NAME="Z_DUMMY_TARGET">
+    <configuration name="Z_DUMMY_TARGET" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ESP32Client" TARGET_NAME="Z_DUMMY_TARGET" CONFIG_NAME="az-delivery-devkit-v4" RUN_TARGET_PROJECT_NAME="ESP32Client" RUN_TARGET_NAME="Z_DUMMY_TARGET">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PlatformIO Debug" type="platformio" factoryName="PlatformIO Debug" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ESP32Client" TARGET_NAME="Debug" CONFIG_NAME="az-delivery-devkit-v4" RUN_TARGET_PROJECT_NAME="ESP32Client" RUN_TARGET_NAME="Debug">
+    <configuration name="PlatformIO Debug" type="platformio" factoryName="PlatformIO Debug" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ESP32Client" TARGET_NAME="Debug" CONFIG_NAME="az-delivery-devkit-v4" RUN_TARGET_PROJECT_NAME="ESP32Client" RUN_TARGET_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PlatformIO Upload" type="platformio" factoryName="PlatformIO Upload" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ESP32Client" TARGET_NAME="Production" CONFIG_NAME="az-delivery-devkit-v4" RUN_TARGET_PROJECT_NAME="ESP32Client" RUN_TARGET_NAME="Production">
+    <configuration name="PlatformIO Upload" type="platformio" factoryName="PlatformIO Upload" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ESP32Client" TARGET_NAME="Production" CONFIG_NAME="az-delivery-devkit-v4" RUN_TARGET_PROJECT_NAME="ESP32Client" RUN_TARGET_NAME="Production">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -142,6 +353,11 @@
       <workItem from="1605709221161" duration="19028000" />
       <workItem from="1605904421125" duration="6228000" />
       <workItem from="1605997055167" duration="45716000" />
+      <workItem from="1606898346523" duration="1653000" />
+      <workItem from="1607461033641" duration="564000" />
+      <workItem from="1607461778575" duration="12191000" />
+      <workItem from="1607536685110" duration="5936000" />
+      <workItem from="1607557644904" duration="6847000" />
     </task>
     <task id="LOCAL−00001" summary="Can now receive messages from script.js with socketio.">
       <created>1605559862702</created>
@@ -191,7 +407,13 @@
       <option name="presentableId" value="LOCAL−00008" />
       <updated>1606082770461</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL−00009" summary="Small changes">
+      <created>1606898629839</created>
+      <option name="number" value="LOCAL−00009" />
+      <option name="presentableId" value="LOCAL−00009" />
+      <updated>1606898629839</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -244,102 +466,7 @@
     <MESSAGE value="Added first draft of authenticator functions (not tested)" />
     <MESSAGE value="Changed the way the robot and server handles the various &quot;handshake&quot; operations." />
     <MESSAGE value="Started on functions for setpoint reading and moduses." />
-    <option name="LAST_COMMIT_MESSAGE" value="Started on functions for setpoint reading and moduses." />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606257684387">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/-2560.-184.1280.700/0.0.1920.1040/1920.-349.1080.1880@0.0.1920.1040" timestamp="1606257684387" />
-    <state x="311" y="45" width="864" height="591" key="DiffContextDialog" timestamp="1605904010958">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="-51" y="-2067" width="1727" height="1215" key="DiffContextDialog/0.0.1280.680/-673.-2160.2560.1400@-673.-2160.2560.1400" timestamp="1605701237102" />
-    <state x="311" y="45" width="864" height="591" key="DiffContextDialog/0.0.1280.680@0.0.1280.680" timestamp="1605904010958" />
-    <state x="476" y="97" key="FileChooserDialogImpl" timestamp="1605897460640">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="476" y="97" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1605897460640" />
-    <state x="581" y="329" width="398" height="248" key="Github.ShareDialog" timestamp="1603280400143">
-      <screen x="0" y="23" width="1440" height="804" />
-    </state>
-    <state x="581" y="329" key="Github.ShareDialog/0.23.1440.804/-1235.-2137.3840.2137@0.23.1440.804" timestamp="1603280400143" />
-    <state x="581" y="330" width="398" height="248" key="Github.ShareDialog/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280369702" />
-    <state width="1878" height="237" key="GridCell.Tab.0.bottom" timestamp="1606776432160">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1238" height="167" key="GridCell.Tab.0.bottom/-1920.0.1920.1000/2560.0.1080.1880/0.0.1280.680@0.0.1280.680" timestamp="1605659735218" />
-    <state width="1878" height="237" key="GridCell.Tab.0.bottom/-2560.-184.1280.700/0.0.1920.1040/1920.-349.1080.1880@0.0.1920.1040" timestamp="1606776432160" />
-    <state width="1236" height="151" key="GridCell.Tab.0.bottom/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605745908060" />
-    <state width="1238" height="261" key="GridCell.Tab.0.bottom/0.0.1280.680/-673.-2160.2560.1400@-673.-2160.2560.1400" timestamp="1605711830490" />
-    <state width="1239" height="347" key="GridCell.Tab.0.bottom/0.0.1280.680/-766.-2160.2560.1400@-766.-2160.2560.1400" timestamp="1606315784224" />
-    <state width="1238" height="164" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1606144848630" />
-    <state width="1398" height="207" key="GridCell.Tab.0.bottom/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280371619" />
-    <state width="1878" height="237" key="GridCell.Tab.0.center" timestamp="1606776432160">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1238" height="167" key="GridCell.Tab.0.center/-1920.0.1920.1000/2560.0.1080.1880/0.0.1280.680@0.0.1280.680" timestamp="1605659735217" />
-    <state width="1878" height="237" key="GridCell.Tab.0.center/-2560.-184.1280.700/0.0.1920.1040/1920.-349.1080.1880@0.0.1920.1040" timestamp="1606776432160" />
-    <state width="1236" height="151" key="GridCell.Tab.0.center/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605745908060" />
-    <state width="1238" height="261" key="GridCell.Tab.0.center/0.0.1280.680/-673.-2160.2560.1400@-673.-2160.2560.1400" timestamp="1605711830490" />
-    <state width="1239" height="347" key="GridCell.Tab.0.center/0.0.1280.680/-766.-2160.2560.1400@-766.-2160.2560.1400" timestamp="1606315784224" />
-    <state width="1238" height="164" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1606144848630" />
-    <state width="1398" height="207" key="GridCell.Tab.0.center/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280371617" />
-    <state width="1878" height="237" key="GridCell.Tab.0.left" timestamp="1606776432160">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1238" height="167" key="GridCell.Tab.0.left/-1920.0.1920.1000/2560.0.1080.1880/0.0.1280.680@0.0.1280.680" timestamp="1605659735217" />
-    <state width="1878" height="237" key="GridCell.Tab.0.left/-2560.-184.1280.700/0.0.1920.1040/1920.-349.1080.1880@0.0.1920.1040" timestamp="1606776432160" />
-    <state width="1236" height="151" key="GridCell.Tab.0.left/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605745908060" />
-    <state width="1238" height="261" key="GridCell.Tab.0.left/0.0.1280.680/-673.-2160.2560.1400@-673.-2160.2560.1400" timestamp="1605711830489" />
-    <state width="1239" height="347" key="GridCell.Tab.0.left/0.0.1280.680/-766.-2160.2560.1400@-766.-2160.2560.1400" timestamp="1606315784224" />
-    <state width="1238" height="164" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1606144848630" />
-    <state width="1398" height="207" key="GridCell.Tab.0.left/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280371616" />
-    <state width="1878" height="237" key="GridCell.Tab.0.right" timestamp="1606776432160">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1238" height="167" key="GridCell.Tab.0.right/-1920.0.1920.1000/2560.0.1080.1880/0.0.1280.680@0.0.1280.680" timestamp="1605659735218" />
-    <state width="1878" height="237" key="GridCell.Tab.0.right/-2560.-184.1280.700/0.0.1920.1040/1920.-349.1080.1880@0.0.1920.1040" timestamp="1606776432160" />
-    <state width="1236" height="151" key="GridCell.Tab.0.right/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605745908060" />
-    <state width="1238" height="261" key="GridCell.Tab.0.right/0.0.1280.680/-673.-2160.2560.1400@-673.-2160.2560.1400" timestamp="1605711830490" />
-    <state width="1239" height="347" key="GridCell.Tab.0.right/0.0.1280.680/-766.-2160.2560.1400@-766.-2160.2560.1400" timestamp="1606315784224" />
-    <state width="1238" height="164" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1606144848630" />
-    <state width="1398" height="207" key="GridCell.Tab.0.right/0.23.1440.806/-1235.-2137.3840.2137@0.23.1440.806" timestamp="1603280371618" />
-    <state x="196" y="0" width="994" height="680" key="SettingsEditor" timestamp="1605899114607">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="196" y="0" width="994" height="680" key="SettingsEditor/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605562873607" />
-    <state x="196" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1605899114607" />
-    <state x="221" y="64" key="SettingsEditor/0.23.1440.804/-1235.-2137.3840.2137@0.23.1440.804" timestamp="1603280444868" />
-    <state x="117" y="148" key="Vcs.Push.Dialog.v2" timestamp="1606082780702">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="-439" y="-1719" key="Vcs.Push.Dialog.v2/0.0.1280.680/-673.-2160.2560.1400@-673.-2160.2560.1400" timestamp="1605701021728" />
-    <state x="117" y="148" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1606082780702" />
-    <state x="216" y="150" key="VcsDiffUtil.ChangesDialog" timestamp="1605903856419">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="-241" y="-1718" key="VcsDiffUtil.ChangesDialog/0.0.1280.680/-673.-2160.2560.1400@-673.-2160.2560.1400" timestamp="1605701224480" />
-    <state x="216" y="150" key="VcsDiffUtil.ChangesDialog/0.0.1280.680@0.0.1280.680" timestamp="1605903856419" />
-    <state x="456" y="254" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605915152057">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="456" y="254" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1920.0.1920.1000/2560.0.1080.1880/0.0.1280.680@0.0.1280.680" timestamp="1605652761651" />
-    <state x="456" y="254" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.680/-1920.0.1920.1040/2560.0.1080.1880@0.0.1280.680" timestamp="1605563353584" />
-    <state x="239" y="-1637" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.680/-673.-2160.2560.1400@-673.-2160.2560.1400" timestamp="1605708207168" />
-    <state x="456" y="254" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.680@0.0.1280.680" timestamp="1605915152057" />
-    <state x="366" y="125" key="refactoring.ChangeSignatureDialog" timestamp="1605997725830">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="366" y="125" key="refactoring.ChangeSignatureDialog/-1920.0.1920.1000/2560.0.1080.1880/0.0.1280.680@0.0.1280.680" timestamp="1605650117784" />
-    <state x="366" y="125" key="refactoring.ChangeSignatureDialog/0.0.1280.680@0.0.1280.680" timestamp="1605997725830" />
-    <state x="299" y="152" key="run.anything.popup" timestamp="1605983374663">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="299" y="152" key="run.anything.popup/0.0.1280.680@0.0.1280.680" timestamp="1605983374663" />
-    <state x="303" y="2" width="672" height="678" key="search.everywhere.popup" timestamp="1605652193196">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="303" y="2" width="672" height="678" key="search.everywhere.popup/-1920.0.1920.1000/2560.0.1080.1880/0.0.1280.680@0.0.1280.680" timestamp="1605652193196" />
+    <MESSAGE value="Small changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Small changes" />
   </component>
 </project>

@@ -1,19 +1,10 @@
 #include <WiFi.h>
 #include <SocketIoClient.h>
 #include <iostream>
+#include <ArduinoJson.h>
 #include <cstdio>
 
-
-///////////////////////////////////// TODO - Find out how this works
-#ifdef __cplusplus
-extern "C" {
-#endif
-uint8_t temprature_sens_read();
-#ifdef __cplusplus
-}
-#endif
-uint8_t temprature_sens_read();
-////////////////////////////////
+StaticJsonBuffer<200> jsonBuffer;
 
 
 /// WIFI Settings ///
@@ -27,38 +18,42 @@ const char* password = "1F1iRr0A";
 //const char* password = "04sJ8$28";
 
 /// Socket.IO Settings ///
-char host[] = "192.168.1.103"; // Socket.IO Server Address
-int port = 3000; // Socket.IO Port Address
+char host[] = "192.168.1.103";                   // Socket.IO Server Address
+int port = 3000;                                 // Socket.IO Port Address
 char path[] = "/socket.io/?transport=websocket"; // Socket.IO Base Path
 //char path[] = "/robot";
-char emittedSensorValues;
 
 // TODO - Configure for SSL and extra authorization
 bool useSSL = false;               // Use SSL Authentication
 const char * sslFingerprint = "";  // SSL Certificate Fingerprint
-bool useAuth = false;              // use Socket.IO Authentication
 const char * serverUsername = "socketIOUsername";
 String serverPassword = "\"123456789\"";
 
 
 /// Pin Settings ///
-#define TEMP_INPUT 34
-#define CO2_INPUT 35
-#define HEATER 4
-#define VENTILATION 5
+int TEMP_INPUT_PIN = 34;
+int CO2_INPUT_PIN = 35;
+int HEATER_OUTPUT_PIN = 4;
+int VENTILATION_OUTPUT_PIN = 5;
 
 
 /// Variables for algorithms ///
-bool surveillance_mode = false;
-bool active_regulation = false;
-int CPUtemp;
-int temperature_setpoint;
-int co2_setpoint;
-int oldValue = 0;
-// robotID has to be chosen based on what types and how many sensor you want
-// robotID also has to correspond to the ID set in the webpage, the value stored in robot-config.json
-const String robotID = "\"000001\"";
-const String sensorID = "\"#####1\"";
+float temperature_setpoint;
+float co2_setpoint;
+float temp_value;
+float co2_value;
+float old_temp_value;
+float old_co2_value;
+bool authenticated_by_server = false;
+
+
+// robotID and sensorID has to be initialized here and have to correspond with the selections on the website
+const String ROBOT_ID = "\"000003\"";
+const String TEMP_SENSOR_KEY = "000001";
+const String CO2_SENSOR_KEY = "000002";
+
+// const String SENSOR_ID_X = "#####X";
+// const String SENSOR_ID_Y = "#####Y";
 
 
 /////////////////////////////////////
@@ -67,6 +62,7 @@ const String sensorID = "\"#####1\"";
 
 SocketIoClient webSocket;
 WiFiClient client;
+
 
 
 void socket_Connected(const char * payload, size_t length) {
@@ -81,6 +77,7 @@ void socket_Connected(const char * payload, size_t length) {
 
 void socket_Disconnected(const char * payload, size_t length) {
     Serial.println("Socket.IO Disconnected!");
+    authenticated_by_server = false;
 }
 
 void authenticate_feedback (const char * payload, size_t length) {
@@ -88,7 +85,8 @@ void authenticate_feedback (const char * payload, size_t length) {
 
     if (feedback == "true") {
         Serial.println("Authentication successful!");
-        webSocket.emit("robotID", robotID.c_str());
+        authenticated_by_server = true;
+        webSocket.emit("robotID", ROBOT_ID.c_str());
     } else if (feedback == "false") {
         Serial.println("Authentication unsuccessful, wrong password");
     } else {
@@ -96,63 +94,87 @@ void authenticate_feedback (const char * payload, size_t length) {
     }
 }
 
+void manage_server_setpoints(const char * payload, size_t length) {
 
-void decide_robot_function(const char *payload, size_t length) {
-    // TODO - Decode the JSON to a single variable that represents the sensor value
+    String str_payload = payload;
+    str_payload.replace("\\", "" );
 
-    // Deciding robot operation based on value sent
-    Serial.println(payload);
-    if (payload == "surveillance-mode") {
-        surveillance_mode = true;
+    char setpoints_array[100];
+    str_payload.toCharArray(setpoints_array, 100);
+
+    Serial.println(setpoints_array);
+
+    JsonObject& server_data = jsonBuffer.parseObject(setpoints_array);
+
+    if(!server_data.success()) {
+        Serial.println("parseObject() from index.js set-points payload failed");
+    }
+
+    temperature_setpoint = server_data[TEMP_SENSOR_KEY];
+    co2_setpoint = server_data[CO2_SENSOR_KEY];
+    Serial.println(temperature_setpoint);
+    Serial.println(co2_setpoint);
+
+}
+
+void read_sensor_value (String sensor_type) {
+    float raw_co2;
+    float raw_temp;
+
+    if (sensor_type == "temperature") {
+        raw_temp = analogRead(TEMP_INPUT_PIN);
+        temp_value = (raw_temp / 4095.0) * 70.0;
+    } else if (sensor_type == "co2") {
+        raw_co2 = analogRead(CO2_INPUT_PIN);
+        co2_value = (raw_co2 / 4095.0) * 200.0;
     } else {
-        active_regulation = true;
-        temperature_setpoint = atoi(payload);
+        Serial.println("Invalid sensor type argument given to readSensorValue function");
+    }
+
+}
+
+void set_output_state (int setpoint, int current_value, int actuator_output) {
+    if (setpoint > current_value) {
+        digitalWrite(actuator_output, HIGH);
+    } else {
+        digitalWrite(actuator_output, LOW);
     }
 }
 
+void send_sensor_value(String sensor_key, float sensor_value) {
 
-// Reading internal ESP32 heat sensor and converts to integer
-int readCPUTemp() {
-    // Reading CPUtemp value and converts to degrees in celsius
-    float x = (temprature_sens_read() - 32) / 1.8;
-    // Converts data from 2 decimal float to integer
-    x = (int)(x + 0.5);
-    // Return CPUtemp in integer value
-    return x;
+    String sensor_data = String("{\"SensorID\":\"" + String(sensor_key) + "\",\"value\":" + String(sensor_value) + "}");
+    Serial.println(sensor_data);
+
+    webSocket.emit("sensorData", sensor_data.c_str());
+
 }
 
+float decimal_round(float input, int decimals) {
+    float scale=pow(10,decimals);
+    return round(input*scale)/scale;
+}
 
-// TODO - Figure out how to send send data as JSON - more specifically: find out how to send quotations marks
-// Because of problems with sending JSON keys in string with ", we are now sending with 0 in front of each key
-// to fix this issue, server is changed to interpret it correctly
-void sendData (int temperature) {
-    // Checking if the temperature has changed since last loop
-    if (temperature != oldValue) {
-        // Sending the new temperature value along with identifiers as JSON to server
-        //std::sprintf(outgoingMessage, "{\"robotID\":%d,\"sensorID\":%d,\"temperature\":%d}", robotID, sensorID, temperature);
-        String temperatureKey = "temperature";
-        String temperatureToSend = String(temperature);
+void check_for_value_change (String sensor_type) {
+    float rounded_value;
 
-        // String JSONobject = String("{\"" + String(String("hallo")) + "\":\"" + String(73) + "\"}");
-        // String JSONobject2 = String("{\"" + String(temperatureKey) + "\":\"" + temperatureToSend + "\"}");
+    if (sensor_type == "temperature") {
+        rounded_value = decimal_round(temp_value, 1);
 
+        if (rounded_value != old_temp_value) {
+            send_sensor_value(TEMP_SENSOR_KEY, rounded_value);
+            old_temp_value = rounded_value;
+        }
 
-        // Serial.println(outgoingMessage);
-        //webSocket.emit("temperature", outgoingMessage);
-        // webSocket.emit("test", JSONobject10.c_str());
-        //webSocket.emit("temperature", outgoingMessage);
-        // sprintf(resultstr, "{\"temp1\":%d,\"temp2\":%d}", temp1, temp2);
+    } else if (sensor_type == "co2") {
+        rounded_value = decimal_round(co2_value, 1);
 
-        // Troubleshooting console printing
-        //std::printf("\n", outgoingMessage);
-
-        // Sets new 'oldValue', for next comparison
-        oldValue = temperature;
-    } else {
-        return;
+        if (rounded_value != old_co2_value) {
+            send_sensor_value(CO2_SENSOR_KEY, rounded_value);
+            old_co2_value = rounded_value;
+        }
     }
 }
-
 
 
 
@@ -160,8 +182,8 @@ void setup() {
     Serial.begin(9600);
     delay(10);
 
-    pinMode(HEATER, OUTPUT);
-    pinMode(VENTILATION, OUTPUT);
+    pinMode(HEATER_OUTPUT_PIN, OUTPUT);
+    pinMode(VENTILATION_OUTPUT_PIN, OUTPUT);
 
     // We start by connecting to a WiFi network
     Serial.println();
@@ -185,7 +207,7 @@ void setup() {
     webSocket.on("connect", socket_Connected);
     webSocket.on("disconnect", socket_Disconnected);
     webSocket.on("authentication", authenticate_feedback);
-    webSocket.on("setpoints", decide_robot_function);
+    webSocket.on("setpoints", manage_server_setpoints);
 
 
     // Setup Connection
@@ -196,38 +218,26 @@ void setup() {
     }
 }
 
-
-
 void loop() {
-    // Reads temperature in CPU and stores it as integer
-    CPUtemp = readCPUTemp();
+    // Reads the value of the the sensor given and saves the value/values to global variable/variables
+    read_sensor_value("temperature");
+    read_sensor_value("co2");
 
-    // Depending on mode selected from website, activate appropriate mode and emit value to server
-    //if (surveillance_mode) {
-    //    //webSocket.emit("sensorData", )
-    //} else if (active_regulation) {
-    //    //webSocket.emit("sensorData", )
-    //    if (CPUtemp < temperature_setpoint) {
-    //        digitalWrite(LEDPin, HIGH);
-    //    } else {
-    //        digitalWrite(LEDPin, LOW);
-    //    }
-    //} else {
-    //    surveillance_mode = false;
-    //    active_regulation = false;
-    //}
+    if (authenticated_by_server) {
+        // Based on the current values and the set-points given from the server, output is set accordingly
+        set_output_state(temperature_setpoint, temp_value, HEATER_OUTPUT_PIN);
+        set_output_state(co2_setpoint, co2_value, VENTILATION_OUTPUT_PIN);
+
+        // TODO - Remove troubleshooting console prints
+        Serial.print("Temp reading: ");
+        Serial.println(temp_value);
+        Serial.print("CO2 reading: ");
+        Serial.println(co2_value);
+
+        // Checks if the current value has changed with more than 0.1 Celsius for temp-sensors, or 0.1 PPM for CO2-sensors
+        // and if the value has changed since last iteration emits a new message to the server
+        check_for_value_change("temperature");
+        check_for_value_change("co2");
+    }
     webSocket.loop();
-
-
-
-    // Troubleshooting physical connections
-    //delay(2000);
-    //int temp = analogRead(TEMP_INPUT);
-    //Serial.println("temp:");
-    //Serial.println(temp);
-    //digitalWrite(HEATER, HIGH);
-    //int co2 = analogRead(CO2_INPUT);
-    //Serial.println("co2:");
-    //Serial.println(co2);
-    //digitalWrite(VENTILATION, HIGH);
 }
