@@ -69,15 +69,15 @@ v5.12.0
 > If you have a block like this:
 >
 > ```c++
-> const char* ssid = root["ssid"];
-> if (!ssid)
->   ssid = "default ssid";
+> const char* SSID = root["SSID"];
+> if (!SSID)
+>   SSID = "default SSID";
 > ```
 >
 > You can simplify like that:
 >
 > ```c++
-> const char* ssid = root["ssid"] | "default ssid";
+> const char* SSID = root["SSID"] | "default SSID";
 > ```
 
 v5.11.2
@@ -380,7 +380,7 @@ v5.0.6
 
 * Added parameter to `DynamicJsonBuffer` constructor to set initial size (issue #152)
 * Fixed warning about library category in Arduino 1.6.6 (issue #147)
-* Examples: Added a loop to wait for serial port to be ready (issue #156)
+* Examples: Added a loop to wait for serial PORT to be ready (issue #156)
 
 v5.0.5
 ------

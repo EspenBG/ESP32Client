@@ -2,10 +2,10 @@
 Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu/xenial64"
 
-  config.vm.synced_folder "E:\\Git\\Arduino\\libraries\\ArduinoJson", "/host/ArduinoJson"
-  config.vm.synced_folder "E:\\Git\\oss-fuzz", "/host/oss-fuzz"
+  config.vm.synced_folder "E:\\Git\\Arduino\\libraries\\ArduinoJson", "/HOST/ArduinoJson"
+  config.vm.synced_folder "E:\\Git\\oss-fuzz", "/HOST/oss-fuzz"
 
-  config.vm.network "forwarded_port", guest: 8001, host: 8001
+  config.vm.network "forwarded_port", guest: 8001, HOST: 8001
 
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
     set -x
@@ -28,6 +28,6 @@ Vagrant.configure(2) do |config|
     echo "export CXX='clang++'" >> $HOME/.profile
     echo "export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/" >> $HOME/.profile
 
-    echo "Run /host/ArduinoJson/fuzzing/fuzz.sh" | sudo tee /etc/motd
+    echo "Run /HOST/ArduinoJson/fuzzing/fuzz.sh" | sudo tee /etc/motd
   SHELL
 end

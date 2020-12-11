@@ -21,7 +21,7 @@ byte mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
 EthernetServer server(80);
 
 void setup() {
-  // Initialize serial port
+  // Initialize serial PORT
   Serial.begin(9600);
   while (!Serial) continue;
 

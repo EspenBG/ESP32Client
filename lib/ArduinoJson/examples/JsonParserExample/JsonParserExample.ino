@@ -7,7 +7,7 @@
 #include <ArduinoJson.h>
 
 void setup() {
-  // Initialize serial port
+  // Initialize serial PORT
   Serial.begin(9600);
   while (!Serial) continue;
 

@@ -21,7 +21,7 @@
 #include <SPI.h>
 
 void setup() {
-  // Initialize Serial port
+  // Initialize Serial PORT
   Serial.begin(9600);
   while (!Serial) continue;
 

@@ -8,7 +8,7 @@
 // The file contains a JSON document with the following content:
 // {
 //   "hostname": "examples.com",
-//   "port": 2731
+//   "PORT": 2731
 // }
 
 #include <ArduinoJson.h>
@@ -41,7 +41,7 @@ void loadConfiguration(const char *filename, Config &config) {
     Serial.println(F("Failed to read file, using default configuration"));
 
   // Copy values from the JsonObject to the Config
-  config.port = root["port"] | 2731;
+  config.port = root["PORT"] | 2731;
   strlcpy(config.hostname,                   // <- destination
           root["hostname"] | "example.com",  // <- source
           sizeof(config.hostname));          // <- destination's capacity
@@ -72,7 +72,7 @@ void saveConfiguration(const char *filename, const Config &config) {
 
   // Set the values
   root["hostname"] = config.hostname;
-  root["port"] = config.port;
+  root["PORT"] = config.port;
 
   // Serialize JSON to file
   if (root.printTo(file) == 0) {
@@ -103,7 +103,7 @@ void printFile(const char *filename) {
 }
 
 void setup() {
-  // Initialize serial port
+  // Initialize serial PORT
   Serial.begin(9600);
   while (!Serial) continue;
 

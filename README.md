@@ -19,7 +19,7 @@ This project is made in CLion, as an CMake project Using the PlatformIO Plugin f
 but they are not covered here.
 
 You need to install [Platform IO Core](https://docs.platformio.org/en/latest/core/installation.html), and add the
-Install Shell Commands as instructed [here](https://docs.platformio.org/en/latest/core/installation.html#piocore-install-shell-commands), [here](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/)
+Install Shell Commands as instructed [here](https://docs.platformio.org/en/latest/core/installation.html#piocore-install-shell-commands), [here](https://www.architectryan.com/2018/03/17/add-to-the-PATH-on-windows-10/)
 are some supplementary help for Windows 10. The plugin for CLion is also required,
 for building and flashing of the program. The plugin can be found in the plugin marketplace in CLion (Settings/Preferences | Plugins).
 

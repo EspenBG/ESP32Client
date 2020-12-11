@@ -28,7 +28,7 @@ unsigned short localPort = 8888;
 EthernetUDP udp;
 
 void setup() {
-  // Initialize serial port
+  // Initialize serial PORT
   Serial.begin(9600);
   while (!Serial) continue;
 
@@ -73,7 +73,7 @@ void loop() {
   // Log
   Serial.print(F("Sending to "));
   Serial.print(remoteIp);
-  Serial.print(F(" on port "));
+  Serial.print(F(" on PORT "));
   Serial.println(remotePort);
   root.printTo(Serial);
 
