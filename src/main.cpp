@@ -55,9 +55,9 @@ float co2Setpoint;
 float tempValue;
 float internalTempValue;
 float co2Value;
-float oldTempValue;
-float oldInternalTempValue;
-float oldCo2Value;
+float previousTempValue;
+float previousInternalTempValue;
+float previousCo2Value;
 bool authenticatedByServer = false;
 // TODO - Write in documentation about reversing temperature output depending on what kind of actuator is connected
 bool tempActuatorReversed = false;
@@ -78,8 +78,6 @@ const String CO2_SENSOR_KEY = "000002";
 const String INTERNAL_TEMP_SENSOR_KEY = "000003";
 
 
-// const String SENSOR_ID_X = "#####X";
-// const String SENSOR_ID_Y = "#####Y";
 
 
 /////////////////////////////////////
@@ -93,7 +91,7 @@ WiFiClient client;
 /**
  * Function that is called when the ESP32 creates a connection with the server. On connection
  * some sentences is printed to the console. Then emits a password to the server for authentication.
- * @param payload     contains the data sent from server
+ * @param payload     contains the data sent from server with event "connect"
  * @param length      gives the size of the payload
  */
 void socketConnected(const char * payload, size_t length) {
@@ -108,9 +106,9 @@ void socketConnected(const char * payload, size_t length) {
 }
 
 /**
- * Function that is called if connection with the server is lost. And sets variable
- * that describes the ESP32 is not authenticated.
- * @param payload     contains the data sent from server
+ * Function that is called if connection with the server is lost. And sets variable that describes the ESP32 is not
+ * authenticated.
+ * @param payload     contains the data sent from server with event "disconnect"
  * @param length      gives the size of the payload
  */
 void socketDisconnected(const char * payload, size_t length) {
@@ -124,7 +122,7 @@ void socketDisconnected(const char * payload, size_t length) {
  * the server emitted true / false, or something invalid. If the response ia false or invalid, prints text
  * describing the error to console. If the server gives approved feedback a new emit function is called with
  * the robots ID, and sets variable that describes the ESP32 is authenticated.
- * @param payload     contains the data sent from server
+ * @param payload     contains the data sent from server with event "authentication"
  * @param length      gives the size of the payload
  */
 void authenticateFeedback (const char * payload, size_t length) {
@@ -141,7 +139,13 @@ void authenticateFeedback (const char * payload, size_t length) {
     }
 }
 
-
+/**
+ * Function that checks the value of each key that is received as set-points, has a float number or the value of none.
+ * If the value is none, then surveillance-mode for that sensor and corresponding actuator is set. If a float for a
+ * set-point is received, then that sensor and corresponding actuator is in normal regulation mode. The mode selected is
+ * also printed to the console.
+ * @param serverData     contains the server sensor keys and corresponding set-points sent from the server in JSON format
+ */
 void determineMode (JsonObject& serverData) {
     if (serverData[TEMP_SENSOR_KEY] == "none") {
         surveillanceModeTemp = true;
@@ -163,10 +167,11 @@ void determineMode (JsonObject& serverData) {
 }
 
 /**
- * Function to get data from the database and form newSensorData, and returns the data as an object
- * The time interval for the search is controlled by the start time and the stop time.
- * If the stop time is 0 the search return all the sensor data from the start time to the time of the search.
- * @param payload     contains the data sent from server
+ * Function that manipulated the payload data into a string that can be formatted with ArduinoJSON methods. Saves the
+ * unique keys and corresponding set-points and saves it in JSON format. Error checking if the formatting worked, if
+ * not prints a status message to console for troubleshooting. Calls the function determineMode with the JSON object
+ * for determining the operation mode of the sensors and corresponding actuators.
+ * @param payload     contains the data sent from server with event "setpoints"
  * @param length      gives the size of the payload
  */
 void manageServerSetpoints(const char * payload, size_t length) {
@@ -187,36 +192,52 @@ void manageServerSetpoints(const char * payload, size_t length) {
 
     determineMode(server_data);
 
+    // TODO - Remove troubleshooting console printing
     Serial.println(temperatureSetpoint);
     Serial.println(co2Setpoint);
 
 }
 
-void readSensorValue (String sensor_type) {
+/**
+ * Function that depending on if is called with sensor type as temperature or co2, and what ESP32 pin number, reads
+ * the analog value of the relevant pin and scales the value appropriately. Then returns the value as a float number to
+ * the global variable that holds the sensor value for the relevant sensor.
+ * @param sensorType     specifies what type of sensor is connected to the inputPin
+ * @param inputPin       specifies the ESP32 pin that the analog value is read from
+ */
+float readSensorValue (String sensorType, int inputPin) {
     float raw_co2;
     float raw_temp;
 
-    if (sensor_type == "temperature") {
-        raw_temp = analogRead(TEMP_INPUT_PIN);
-        tempValue = (raw_temp / 4095.0) * 70.0;
-    } else if (sensor_type == "co2") {
-        raw_co2 = analogRead(CO2_INPUT_PIN);
-        co2Value = (raw_co2 / 4095.0) * 2000.0;
+    if (sensorType == "temperature") {
+        raw_temp = analogRead(inputPin);
+        return (raw_temp / 4095.0) * 70.0;
+    } else if (sensorType == "co2") {
+        raw_co2 = analogRead(inputPin);
+        return (raw_co2 / 4095.0) * 2000.0;
     } else {
         Serial.println("Invalid sensor type argument given to readSensorValue function");
     }
 
 }
 
-bool checkSensor (float setpoint, float current_value, bool output_reversed) {
-    if (output_reversed) {
-        if (setpoint < current_value) {
+/**
+ * Function that checks what kind of output actuator type is used for the regulation, and a logic statement that
+ * checks depending on if the output actuator is reversed, if the current value of the sensor is lower / higher than
+ * the set point. Returns either true or false, which respectively turns the output HIGH or LOW.
+ * @param setPoint             the value of the set-point given from the server
+ * @param currentValue         the most recent process value of the sensor
+ * @param outputReversed       determines what kind of regulation is used for the actuator (direct / reverse control)
+ */
+bool checkSensor (float setPoint, float currentValue, bool outputReversed) {
+    if (outputReversed) {
+        if (setPoint < currentValue) {
             return true;
         } else {
             return false;
         }
     } else {
-        if (setpoint < current_value) {
+        if (setPoint < currentValue) {
             return false;
         } else {
             return true;
@@ -224,26 +245,41 @@ bool checkSensor (float setpoint, float current_value, bool output_reversed) {
     }
 }
 
-void setOutput (int output_pin, bool output) {
+/**
+ * Function that takes in a bool value for the output and the outputPin that should be controlled. Uses these values to
+ * turn on or off the output. An input or true gives HIGH output, and input of false gives LOW output.
+ * @param outputPin     specifies the output pin of the ESP32 that is used to control the actuator
+ * @param output        the value of what the output should be in bool values
+ */
+void setOutput (int outputPin, bool output) {
     if (output) {
-        digitalWrite(output_pin, HIGH);
+        digitalWrite(outputPin, HIGH);
     } else {
-        digitalWrite(output_pin, LOW);
+        digitalWrite(outputPin, LOW);
     }
 }
 
-void sendDataToServer(String typeOfData, String key1Value, float sensor_value, bool outputState) {
-
+/**
+ * Function that first checks what kind of data that should be sent, could be output states or sensor values, as this
+ * function is used for all sending of data to server. Further formats the output data to JSON format, with sensor values
+ * if the type of data is "sensorValues". Or sends the output state if type of data is "output". Then sends the values
+ * with websockets using event "sensorData".
+ * @param typeOfData       argument that determines if the data should be sent as output states or sensor values
+ * @param idKey            name of the sensor / actuator ID
+ * @param sensorValue      the current value of the sensor [only used when this function is used for sending sensor values]
+ * @param outputState      the current value of the output [only used when this function is used for sending output states]
+ */
+void sendDataToServer(String typeOfData, String idKey, float sensorValue, bool outputState) {
     if (typeOfData == "output") {
-        String data = String("{\"ControlledItemID\":\"" + String(key1Value) + "\",\"value\":" + String(outputState) + "}");
+        String data = String("{\"ControlledItemID\":\"" + String(idKey) + "\",\"value\":" + String(outputState) + "}");
+        // TODO - remove console printing for troubleshooting
         Serial.println(data);
-
         webSocket.emit("sensorData", data.c_str());
 
     } else if (typeOfData == "sensorValues") {
-        String data = String("{\"SensorID\":\"" + String(key1Value) + "\",\"value\":" + String(sensor_value) + "}");
+        String data = String("{\"SensorID\":\"" + String(idKey) + "\",\"value\":" + String(sensorValue) + "}");
+        // TODO - remove console printing for troubleshooting
         Serial.println(data);
-
         webSocket.emit("sensorData", data.c_str());
 
     } else {
@@ -253,57 +289,77 @@ void sendDataToServer(String typeOfData, String key1Value, float sensor_value, b
 }
 
 /**
- * Function to get data from the database and form newSensorData, and returns the data as an object
- * The time interval for the search is controlled by the start time and the stop time.
- * If the stop time is 0 the search return all the sensor data from the start time to the time of the search.
- * @param startTime     start time of the search (time in ms from 01.01.1970)
- * @param stopTime      stop time for the search (time in ms from 01.01.1970)
- * @param sensorID      name of the sensor, the sensorID
- * @param dataType      Specifies the type of data to search for (e.g. SensorID or ControlledItemID)
- * @param callback      Runs the callback with the sensor data for the sensor specified
+ * Function that finds out what state the output should be in by calling the checkSensor functions with relevant
+ * parameters. Depending on what kind of sensor / actuator pair of regulation is called with this function, goes into
+ * the appropriate if statement condition. Then checks if the output state has changed since the last iteration, if the
+ * output has changed the if statement is entered, and output is set. Further variables that holds the previous output
+ * state is set again to that value, for future iterations to check against. Then this output state is sent to the server
+ * using the function sendDataToServer.
+ * @param typeOfData          argument that states the output actuator type
+ * @param setpoint            the value of the set-point given from the server
+ * @param currentValue        the most recent process value of the sensor
+ * @param outputPin           specifies the output pin of the ESP32 that is used to control the actuator
+ * @param outputReversed      determines what kind of regulation is used for the actuator (direct / reverse control)
+ * @param idKey               name of the sensor / actuator ID
  */
-void setOutputState (String typeOfData, float setpoint, float current_value, int actuator_output, bool output_reversed, String idKey) {
-    bool output = checkSensor(setpoint, current_value, output_reversed);
+void setOutputState (String typeOfData, float setpoint, float currentValue, int outputPin, bool outputReversed, String idKey) {
+    bool output = checkSensor(setpoint, currentValue, outputReversed);
 
     if (typeOfData == "temperature") {
         if (output != previousTempOutputState) {
-            setOutput(actuator_output, output);
+            setOutput(outputPin, output);
             previousTempOutputState = output;
             sendDataToServer("output", idKey, 0.0, output);
         }
     } else if (typeOfData == "co2") {
         if (output != previousCo2OutputState) {
-            setOutput(actuator_output, output);
+            setOutput(outputPin, output);
             previousCo2OutputState = output;
             sendDataToServer("output", idKey, 0.0, output);
         }
     }
 }
 
+/**
+ * Function that takes in a float number and rounds the number to a specified number of decimal places, which is
+ * given in the second parameter, decimals.
+ * @param input           input number in float that will be manipulated to a rounded decimal number
+ * @param decimals        specifies how many decimal places the rounding algorithm will perform
+ */
 float decimalRound(float input, int decimals) {
     float scale=pow(10,decimals);
     return round(input*scale)/scale;
 }
 
-void checkForSensorChange (String sensor_type, String idKey) {
+/**
+ * Function that first checks what kind of process value is being processed. Then finds the rounded value of the
+ * process current value called with the function. Further uses this value to check if the process value has changed
+ * enough to warrant a message sent with websockets to the server. The limits for how much the process value has to
+ * change depends on what kind of type of sensor is called. When the data is sent, a new previous sensor value is set
+ * for future iterations to check against.
+ * @param typeOfData         argument that determines if the data should be sent as output states or sensor values
+ * @param idKey              name of the sensor / actuator ID
+ * @param currentValue       the most recent process value of the sensor
+ */
+void checkForSensorChange (String typeOfData, String idKey, float currentValue) {
     float rounded_value;
 
-    if (sensor_type == "temperature") {
-        rounded_value = decimalRound(tempValue, 1);
+    if (typeOfData == "temperature") {
+        rounded_value = decimalRound(currentValue, 1);
 
-        if ((oldTempValue - 1) > rounded_value or (oldTempValue + 1) < rounded_value) {
+        if ((previousTempValue - 1) > rounded_value or (previousTempValue + 1) < rounded_value) {
             sendDataToServer("sensorValues", idKey, rounded_value, false);
-            oldTempValue = rounded_value;
+            previousTempValue = rounded_value;
         }
 
-    } else if (sensor_type == "co2") {
-        rounded_value = decimalRound(co2Value, 1);
+    } else if (typeOfData == "co2") {
+        rounded_value = decimalRound(currentValue, 1);
 
-        if ((oldCo2Value - 50) > rounded_value or (oldCo2Value + 50) < rounded_value) {
+        if ((previousCo2Value - 50) > rounded_value or (previousCo2Value + 50) < rounded_value) {
             sendDataToServer("sensorValues", idKey, rounded_value, false);
-            oldCo2Value = rounded_value;
+            previousCo2Value = rounded_value;
         }
-    } else if (sensor_type == "internal-temp") {
+    } else if (typeOfData == "internal-temp") {
 
         // TODO - Remove troubleshooting console printing
         //Serial.print("Internal CPU Temperature: ");
@@ -314,9 +370,9 @@ void checkForSensorChange (String sensor_type, String idKey) {
         internalTempValue = ((temprature_sens_read() - 32) / 1.8);
         rounded_value = decimalRound(internalTempValue, 1);
 
-        if ((oldInternalTempValue - 1) > rounded_value or (oldInternalTempValue + 1) < rounded_value) {
+        if ((previousInternalTempValue - 1) > rounded_value or (previousInternalTempValue + 1) < rounded_value) {
             sendDataToServer("sensorValues", idKey, rounded_value, false);
-            oldInternalTempValue = rounded_value;
+            previousInternalTempValue = rounded_value;
         }
     }
 }
@@ -347,7 +403,7 @@ void setup() {
     Serial.println(WiFi.localIP());
 
 
-    // Listen events for incoming data from server
+    // Listen events for all websockets events from raspberryPiServer
     webSocket.on("connect", socketConnected);
     webSocket.on("disconnect", socketDisconnected);
     webSocket.on("authentication", authenticateFeedback);
@@ -364,8 +420,8 @@ void setup() {
 
 void loop() {
     // Reads the value of the the sensor given and saves the value/values to global variable/variables
-    readSensorValue("temperature");
-    readSensorValue("co2");
+    tempValue = readSensorValue("temperature", TEMP_INPUT_PIN);
+    co2Value = readSensorValue("co2", CO2_INPUT_PIN);
 
     if (authenticatedByServer) {
         // Based on the current values and the set-points given from the server, output is set accordingly
@@ -387,9 +443,11 @@ void loop() {
 
         // Checks if the current value has changed with more than 0.1 Celsius for temp-sensors, or 0.1 PPM for CO2-sensors
         // and if the value has changed since last iteration emits a new message to the server
-        checkForSensorChange("temperature", TEMP_SENSOR_KEY);
-        checkForSensorChange("co2", CO2_SENSOR_KEY);
-        checkForSensorChange("internal-temp", INTERNAL_TEMP_SENSOR_KEY);
+        checkForSensorChange("temperature", TEMP_SENSOR_KEY, tempValue);
+        checkForSensorChange("co2", CO2_SENSOR_KEY, co2Value);
+
+        // TODO - Figure out why the internal temp gives ~80 degrees celsius
+        checkForSensorChange("internal-temp", INTERNAL_TEMP_SENSOR_KEY, 0);
 
     }
 

@@ -43,18 +43,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="936bc293-097a-445b-8294-fc0e1d190978" name="Default Changelist" comment="Program almost ready for movie making the 10.12.20. &#10;&#10;Problem when server receives the sensor data:&#10;When this is emitted with sensorData: {&quot;SensorID&quot;:&quot;000001&quot;,&quot;value&quot;:44.90}&#10;&#10;Server gets error: TypeError: Cannot read property 'undefined' of undefined (at line 206).">
+    <list default="true" id="936bc293-097a-445b-8294-fc0e1d190978" name="Default Changelist" comment="Program changed for postponed movie 11.12.20:&#10;Added: internal temperature sensor surveillance, sending of output states, surveillance / regulation mode selection, some code cleanup (changing variable names and functions).">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ArduinoJson/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ArduinoJson/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ArduinoJson/examples/JsonConfigFile/JsonConfigFile.ino" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ArduinoJson/examples/JsonConfigFile/JsonConfigFile.ino" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ArduinoJson/examples/JsonGeneratorExample/JsonGeneratorExample.ino" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ArduinoJson/examples/JsonGeneratorExample/JsonGeneratorExample.ino" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ArduinoJson/examples/JsonHttpClient/JsonHttpClient.ino" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ArduinoJson/examples/JsonHttpClient/JsonHttpClient.ino" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ArduinoJson/examples/JsonParserExample/JsonParserExample.ino" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ArduinoJson/examples/JsonParserExample/JsonParserExample.ino" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ArduinoJson/examples/JsonServer/JsonServer.ino" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ArduinoJson/examples/JsonServer/JsonServer.ino" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ArduinoJson/examples/JsonUdpBeacon/JsonUdpBeacon.ino" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ArduinoJson/examples/JsonUdpBeacon/JsonUdpBeacon.ino" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ArduinoJson/scripts/oss-fuzz/Vagrantfile" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ArduinoJson/scripts/oss-fuzz/Vagrantfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platformio.ini" beforeDir="false" afterPath="$PROJECT_DIR$/platformio.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -157,7 +147,7 @@
       <workItem from="1607461033641" duration="564000" />
       <workItem from="1607461778575" duration="12191000" />
       <workItem from="1607536685110" duration="5936000" />
-      <workItem from="1607557644904" duration="31128000" />
+      <workItem from="1607557644904" duration="39314000" />
     </task>
     <task id="LOCAL−00001" summary="Can now receive messages from script.js with socketio.">
       <created>1605559862702</created>
@@ -219,7 +209,13 @@
       <option name="presentableId" value="LOCAL−00010" />
       <updated>1607564849438</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL−00011" summary="Program changed for postponed movie 11.12.20:&#10;Added: internal temperature sensor surveillance, sending of output states, surveillance / regulation mode selection, some code cleanup (changing variable names and functions).">
+      <created>1607649422267</created>
+      <option name="number" value="LOCAL−00011" />
+      <option name="presentableId" value="LOCAL−00011" />
+      <updated>1607649422267</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -274,6 +270,7 @@
     <MESSAGE value="Started on functions for setpoint reading and moduses." />
     <MESSAGE value="Small changes" />
     <MESSAGE value="Program almost ready for movie making the 10.12.20. &#10;&#10;Problem when server receives the sensor data:&#10;When this is emitted with sensorData: {&quot;SensorID&quot;:&quot;000001&quot;,&quot;value&quot;:44.90}&#10;&#10;Server gets error: TypeError: Cannot read property 'undefined' of undefined (at line 206)." />
-    <option name="LAST_COMMIT_MESSAGE" value="Program almost ready for movie making the 10.12.20. &#10;&#10;Problem when server receives the sensor data:&#10;When this is emitted with sensorData: {&quot;SensorID&quot;:&quot;000001&quot;,&quot;value&quot;:44.90}&#10;&#10;Server gets error: TypeError: Cannot read property 'undefined' of undefined (at line 206)." />
+    <MESSAGE value="Program changed for postponed movie 11.12.20:&#10;Added: internal temperature sensor surveillance, sending of output states, surveillance / regulation mode selection, some code cleanup (changing variable names and functions)." />
+    <option name="LAST_COMMIT_MESSAGE" value="Program changed for postponed movie 11.12.20:&#10;Added: internal temperature sensor surveillance, sending of output states, surveillance / regulation mode selection, some code cleanup (changing variable names and functions)." />
   </component>
 </project>
