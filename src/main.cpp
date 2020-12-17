@@ -2,91 +2,83 @@
 #include <SocketIoClient.h>
 #include <ArduinoJson.h>
 
-
-StaticJsonBuffer<200> jsonBuffer;
-
-
-/// WIFI Settings ///
-const char* SSID     = "Tony-Wifi";
-const char* PASSWORD = "1F1iRr0A";
-
-//const char* SSID     = "Zhone_8BF7";
-//const char* PASSWORD = "znid305147639";
-
-//const char* SSID     = "LAPTOP-6FTQ2LO34274";
-//const char* PASSWORD = "04sJ8$28";
+/// Access-point Settings ///
+const char* SSID     = "Example-network-SSID";       // Name of access-point
+const char* PASSWORD = "password";                   // Password for access-point
 
 /// Socket.IO Settings ///
-char HOST[] = "192.168.1.103";                   // Socket.IO Server Address
-int PORT = 3000;                                 // Socket.IO Port Address
-char PATH[] = "/socket.io/?transport=websocket"; // Socket.IO Base Path
+char HOST[] = "192.168.137.105";                     // Socket.IO Server Address
+int PORT = 3000;                                     // Socket.IO Port Address
+char PATH[] = "/socket.io/?transport=websocket";     // Socket.IO Base Path
+String SERVER_PASSWORD = "\"123456789\"";            // Password sent to server for authentication
+
+StaticJsonBuffer<200> jsonBuffer;                    // Buffer storage for JSON values
+
 
 /// Internal temperature sensor initializing ///
 #ifdef __cplusplus
 extern "C" {
 #endif
-
 uint8_t temprature_sens_read();
-
 #ifdef __cplusplus
 }
 #endif
-
 uint8_t temprature_sens_read();
-
-
-// TODO - Configure for SSL and extra authorization
-bool USE_SSL = false;               // Use SSL Authentication
-const char * SSL_FINGERPRINT = "";  // SSL Certificate Fingerprint
-const char * SERVER_USERNAME = "socketIOUsername";
-String SERVER_PASSWORD = "\"123456789\"";
 
 
 /// Pin Settings ///
 int TEMP_INPUT_PIN = 35;
 int CO2_INPUT_PIN = 34;
+
 int HEATER_OUTPUT_PIN = 4;
 int VENTILATION_OUTPUT_PIN = 5;
 
 
-/// Variables for algorithms ///
+/// Variables for algorithms, variables are grouped according to the same function but for different regulation pairs ///
+// The setpoints that the server emits to the robot
 float temperatureSetpoint;
 float co2Setpoint;
+
+// The most recent value of the senors
 float tempValue;
 float internalTempValue;
 float co2Value;
+
+// The sensor values from the last iteration
 float previousTempValue;
 float previousInternalTempValue;
 float previousCo2Value;
-bool authenticatedByServer = false;
-// TODO - Write in documentation about reversing temperature output depending on what kind of actuator is connected
-bool tempActuatorReversed = false;
-bool co2ActuatorReversed = true; // All CO2 actuator is working with reversed = false
 
+// Bool that is evaluated true if server validated the robot
+bool authenticatedByServer = false;
+
+// Determines what kind of regulation method should be used
+bool tempActuatorReversed = false;
+bool co2ActuatorReversed = true;
+
+// The output states from the last iteration
 bool previousTempOutputState;
 bool previousCo2OutputState;
 
+// If true determines that the sensor should only be used for surveillance and no regulation
 bool surveillanceModeTemp;
 bool surveillanceModeCo2;
 
+// Stores the value of the time for the next timeout
+unsigned long nextTimeout = 0;
 
+// Parameter that specifies how long before each timeout
+int timeout = 5000;
 
-// robotID and sensorID has to be initialized here and have to correspond with the selections on the website
-const String ROBOT_ID = "\"000003\"";
-const String TEMP_SENSOR_KEY = "000001";
-const String CO2_SENSOR_KEY = "000002";
-const String INTERNAL_TEMP_SENSOR_KEY = "000003";
+// System identification and keys for JSON communication parameters
+const String ROBOT_ID = "\"001\"";
+const String TEMP_SENSOR_KEY = "001";
+const String CO2_SENSOR_KEY = "002";
+const String INTERNAL_TEMP_SENSOR_KEY = "003";
 
-
-
-
-/////////////////////////////////////
-////// ESP32 Socket.IO Client ///////
-/////////////////////////////////////
-
+// Instances for communication and wifi.
 SocketIoClient webSocket;
 WiFiClient client;
-
 
 /**
  * Function that is called when the ESP32 creates a connection with the server. On connection
@@ -95,13 +87,11 @@ WiFiClient client;
  * @param length      gives the size of the payload
  */
 void socketConnected(const char * payload, size_t length) {
+    // Prints information to the console for user information
     Serial.println("Socket.IO Connected!");
-
     Serial.println("Sending PASSWORD to server for authentication");
-    // TODO - Remove?
-    delay(1000);
 
-    // Sending PASSWORD to server for authentication
+    // Sending the password for the robot to the server to get authenticated
     webSocket.emit("authentication", SERVER_PASSWORD.c_str());
 }
 
@@ -126,11 +116,14 @@ void socketDisconnected(const char * payload, size_t length) {
  * @param length      gives the size of the payload
  */
 void authenticateFeedback (const char * payload, size_t length) {
+    // Changes datatype of feedback to a string
     String feedback = payload;
 
     if (feedback == "true") {
         Serial.println("Authentication successful!");
+        // Sets the robot to authenticated
         authenticatedByServer = true;
+        // Sends the robots ID to the robot-server so that a profile can be set up
         webSocket.emit("robotID", ROBOT_ID.c_str());
     } else if (feedback == "false") {
         Serial.println("Authentication unsuccessful, wrong PASSWORD");
@@ -147,22 +140,30 @@ void authenticateFeedback (const char * payload, size_t length) {
  * @param serverData     contains the server sensor keys and corresponding set-points sent from the server in JSON format
  */
 void determineMode (JsonObject& serverData) {
+    // Checks if the data associated with the key is equal to the string "none"
     if (serverData[TEMP_SENSOR_KEY] == "none") {
         surveillanceModeTemp = true;
         Serial.println("Surveillance mode for temp is activated");
+        digitalWrite(HEATER_OUTPUT_PIN, LOW);
+        previousTempOutputState = false;
+    // If its not, it will be a numeric value and regulation should be started with this value
     } else {
         temperatureSetpoint = serverData[TEMP_SENSOR_KEY];
         surveillanceModeTemp = false;
         Serial.println("Normal regulation mode for temp is activated");
     }
-
+    // Checks if the data associated with the key is equal to the string "none"
     if (serverData[CO2_SENSOR_KEY] == "none") {
         surveillanceModeCo2 = true;
         Serial.println("Surveillance mode for co2 is activated");
+        digitalWrite(VENTILATION_OUTPUT_PIN, LOW);
+        previousCo2OutputState = false;
+    // If its not, it will be a numeric value and regulation should be started with this value
     } else {
         co2Setpoint = serverData[CO2_SENSOR_KEY];
         surveillanceModeCo2 = false;
         Serial.println("Normal regulation mode for co2 is activated");
+
     }
 }
 
@@ -175,17 +176,19 @@ void determineMode (JsonObject& serverData) {
  * @param length      gives the size of the payload
  */
 void manageServerSetpoints(const char * payload, size_t length) {
-
+    // Changes the incoming data in the string datatype
     String str_payload = payload;
+    // Because the set-points is not in proper JSON format, modulates the string to JSON
     str_payload.replace("\\", "" );
 
+    // Defines an array to store the data in JSON
     char setpoints_array[100];
     str_payload.toCharArray(setpoints_array, 100);
 
-    Serial.println(setpoints_array);
-
+    // Stores the data as a JsonObject datatype
     JsonObject& server_data = jsonBuffer.parseObject(setpoints_array);
 
+    // Control check if the JSON processing worked, if not prints error message to console
     if(!server_data.success()) {
         Serial.println("parseObject() from index.js set-points payload failed");
     }
@@ -204,21 +207,26 @@ void manageServerSetpoints(const char * payload, size_t length) {
  * the global variable that holds the sensor value for the relevant sensor.
  * @param sensorType     specifies what type of sensor is connected to the inputPin
  * @param inputPin       specifies the ESP32 pin that the analog value is read from
+ * @return               The sensor value in proper physical units
  */
 float readSensorValue (String sensorType, int inputPin) {
+    // Defines local variables that are used to store the values read from ESP32 pins
     float raw_co2;
     float raw_temp;
 
     if (sensorType == "temperature") {
         raw_temp = analogRead(inputPin);
+        // Returns the value read scaled to reflect proper temperature value
         return (raw_temp / 4095.0) * 70.0;
     } else if (sensorType == "co2") {
         raw_co2 = analogRead(inputPin);
+        // Returns the value read scaled to reflect proper CO2 value
         return (raw_co2 / 4095.0) * 2000.0;
     } else {
-        Serial.println("Invalid sensor type argument given to readSensorValue function");
+        // If the sensor type is not defined according to a possible type
+        // Returns a value that symbolizes an error
+        return -1000.0;
     }
-
 }
 
 /**
@@ -228,6 +236,7 @@ float readSensorValue (String sensorType, int inputPin) {
  * @param setPoint             the value of the set-point given from the server
  * @param currentValue         the most recent process value of the sensor
  * @param outputReversed       determines what kind of regulation is used for the actuator (direct / reverse control)
+ * @return                     the bool value that is used to turn output HIGH or LOW
  */
 bool checkSensor (float setPoint, float currentValue, bool outputReversed) {
     if (outputReversed) {
@@ -260,6 +269,22 @@ void setOutput (int outputPin, bool output) {
 }
 
 /**
+ * Function that takes in a value in milliseconds, and sets a time in the future based on that value.
+ * @param timeout     specifies how long the timeouts should be
+ */
+void startTimer (int timeout) {
+    nextTimeout = millis() + timeout;
+}
+
+/**
+ * Function that checks if the current time is equal or has passed the timeout that was set
+ * @return              value that returns true if timer has expired and false if not
+ */
+bool isTimerExpired () {
+    return (millis() >= nextTimeout);
+}
+
+/**
  * Function that first checks what kind of data that should be sent, could be output states or sensor values, as this
  * function is used for all sending of data to server. Further formats the output data to JSON format, with sensor values
  * if the type of data is "sensorValues". Or sends the output state if type of data is "output". Then sends the values
@@ -271,18 +296,17 @@ void setOutput (int outputPin, bool output) {
  */
 void sendDataToServer(String typeOfData, String idKey, float sensorValue, bool outputState) {
     if (typeOfData == "output") {
+        // Formats the outgoing data as a JSON string and sends it to robot-server
         String data = String("{\"ControlledItemID\":\"" + String(idKey) + "\",\"value\":" + String(outputState) + "}");
-        // TODO - remove console printing for troubleshooting
-        Serial.println(data);
         webSocket.emit("sensorData", data.c_str());
 
     } else if (typeOfData == "sensorValues") {
+        // Formats the outgoing data as a JSON string and sends it to robot-server
         String data = String("{\"SensorID\":\"" + String(idKey) + "\",\"value\":" + String(sensorValue) + "}");
-        // TODO - remove console printing for troubleshooting
-        Serial.println(data);
         webSocket.emit("sensorData", data.c_str());
 
     } else {
+        // Prints to console for error notification
         Serial.println("Invalid type of data");
     }
 
@@ -303,17 +327,23 @@ void sendDataToServer(String typeOfData, String idKey, float sensorValue, bool o
  * @param idKey               name of the sensor / actuator ID
  */
 void setOutputState (String typeOfData, float setpoint, float currentValue, int outputPin, bool outputReversed, String idKey) {
+    // Calls function to check what state the output should be in and stores this value
     bool output = checkSensor(setpoint, currentValue, outputReversed);
 
+    //  Checks what type of data the sensor and corresponding actuator is, and goes into correct instruction set
     if (typeOfData == "temperature") {
+        // If the output has changed since last iteration, data is sent and output is changed to new state
         if (output != previousTempOutputState) {
             setOutput(outputPin, output);
+            // Sets new previous output state to be used for next iteration of program
             previousTempOutputState = output;
             sendDataToServer("output", idKey, 0.0, output);
         }
     } else if (typeOfData == "co2") {
+        // If the output has changed since last iteration, data is sent and output is changed to new state
         if (output != previousCo2OutputState) {
             setOutput(outputPin, output);
+            // Sets new previous output state to be used for next iteration of program
             previousCo2OutputState = output;
             sendDataToServer("output", idKey, 0.0, output);
         }
@@ -325,6 +355,7 @@ void setOutputState (String typeOfData, float setpoint, float currentValue, int 
  * given in the second parameter, decimals.
  * @param input           input number in float that will be manipulated to a rounded decimal number
  * @param decimals        specifies how many decimal places the rounding algorithm will perform
+ * @return                returns value in float that is the rounded value of input value
  */
 float decimalRound(float input, int decimals) {
     float scale=pow(10,decimals);
@@ -342,36 +373,43 @@ float decimalRound(float input, int decimals) {
  * @param currentValue       the most recent process value of the sensor
  */
 void checkForSensorChange (String typeOfData, String idKey, float currentValue) {
+    // Local variable that stores a local value of the sensor value
     float rounded_value;
 
     if (typeOfData == "temperature") {
+        // Calls function to round the sensor value to one decimal point
         rounded_value = decimalRound(currentValue, 1);
 
-        if ((previousTempValue - 1) > rounded_value or (previousTempValue + 1) < rounded_value) {
+        // Checks if the temperature has changed within the threshold values
+        if ((previousTempValue - .2) > rounded_value or (previousTempValue + .2) < rounded_value) {
+            // Sends the new value to server
             sendDataToServer("sensorValues", idKey, rounded_value, false);
+            // Sets the new temperature value for text iteration comparison
             previousTempValue = rounded_value;
         }
 
     } else if (typeOfData == "co2") {
+        // Calls function to round the sensor value to one decimal point
         rounded_value = decimalRound(currentValue, 1);
 
-        if ((previousCo2Value - 50) > rounded_value or (previousCo2Value + 50) < rounded_value) {
+        // Checks if the CO2 level has changed within the threshold values
+        if ((previousCo2Value - 1) > rounded_value or (previousCo2Value + 1) < rounded_value) {
+            // Sends the new value to server
             sendDataToServer("sensorValues", idKey, rounded_value, false);
+            // Sets the new CO2 value for text iteration comparison
             previousCo2Value = rounded_value;
         }
     } else if (typeOfData == "internal-temp") {
-
-        // TODO - Remove troubleshooting console printing
-        //Serial.print("Internal CPU Temperature: ");
-        // Convert raw temperature in F to Celsius degrees
-        //Serial.print((temprature_sens_read() - 32) / 1.8);
-        //Serial.println(" C");
-
+        // Reads the internal temperature and changes the value from fahrenheit to celsius
         internalTempValue = ((temprature_sens_read() - 32) / 1.8);
+        // Rounds the internal temperature to a number with a one decimal place
         rounded_value = decimalRound(internalTempValue, 1);
 
-        if ((previousInternalTempValue - 1) > rounded_value or (previousInternalTempValue + 1) < rounded_value) {
+        // Check if the internal temperature level has changed within the threshold values
+        if ((previousInternalTempValue - .2) > rounded_value or (previousInternalTempValue + .2) < rounded_value) {
+            // Sends the new value to server
             sendDataToServer("sensorValues", idKey, rounded_value, false);
+            // Sets the new internal temperature value for text iteration comparison
             previousInternalTempValue = rounded_value;
         }
     }
@@ -379,9 +417,11 @@ void checkForSensorChange (String typeOfData, String idKey, float currentValue) 
 
 
 void setup() {
+    // Starts the serial communication between the editor and the surveillance of the robot
     Serial.begin(9600);
     delay(10);
 
+    // Sets relevant outputs for the actuators
     pinMode(HEATER_OUTPUT_PIN, OUTPUT);
     pinMode(VENTILATION_OUTPUT_PIN, OUTPUT);
 
@@ -410,44 +450,44 @@ void setup() {
     webSocket.on("setpoints", manageServerSetpoints);
 
 
-    // Setup Connection
-    if (USE_SSL) {
-        webSocket.beginSSL(HOST, PORT, PATH, SSL_FINGERPRINT);
-    } else {
-        webSocket.begin(HOST, PORT, PATH);
-    }
+    // Setup Connection with raspberryPiServer
+    webSocket.begin(HOST, PORT, PATH);
 }
 
 void loop() {
-    // Reads the value of the the sensor given and saves the value/values to global variable/variables
+    // Reads the value of the the sensor connected to associated pin and saves the value in a global variable
     tempValue = readSensorValue("temperature", TEMP_INPUT_PIN);
     co2Value = readSensorValue("co2", CO2_INPUT_PIN);
 
+    // If the function over has returned -1000, this statements knows that an error has occurred and prints message
+    if (tempValue == -1000.0 or co2Value == -1000.0) {
+        Serial.println("Invalid sensor type argument given to readSensorValue function");
+    }
+
+    // If the robot has been authenticated regulation and regular communication can be established
     if (authenticatedByServer) {
-        // Based on the current values and the set-points given from the server, output is set accordingly
-        if (!surveillanceModeTemp) {
-            setOutputState("temperature", temperatureSetpoint, tempValue, HEATER_OUTPUT_PIN, tempActuatorReversed,
-                           TEMP_SENSOR_KEY);
+        // If the timer that controls the update speed has expired, the robot can proceed with regulation and communication
+        if (isTimerExpired()) {
+            // If surveillance mode is deactivated, the robot knows that it is active regulation and outputs can be set
+            if (!surveillanceModeTemp) {
+                setOutputState("temperature", temperatureSetpoint, tempValue, HEATER_OUTPUT_PIN, tempActuatorReversed,
+                               TEMP_SENSOR_KEY);
+            }
+            // If surveillance mode is deactivated, the robot knows that it is active regulation and outputs can be set
+            if (!surveillanceModeCo2) {
+                setOutputState("co2", co2Setpoint, co2Value, VENTILATION_OUTPUT_PIN, co2ActuatorReversed,
+                               CO2_SENSOR_KEY);
+            }
+
+            // Checks if the sensors has read a large enough chance to exceed the threshold to send the values to server
+            checkForSensorChange("temperature", TEMP_SENSOR_KEY, tempValue);
+            checkForSensorChange("co2", CO2_SENSOR_KEY, co2Value);
+            checkForSensorChange("internal-temp", INTERNAL_TEMP_SENSOR_KEY, 0);
+
+            // Starts a timer for when the next time the robot can set output states and send current values to server
+            // This value is used in the statement that is evaluated to enter this part of the code
+            startTimer (timeout);
         }
-
-        if (!surveillanceModeCo2) {
-            setOutputState("co2", co2Setpoint, co2Value, VENTILATION_OUTPUT_PIN, co2ActuatorReversed,
-                           CO2_SENSOR_KEY);
-        }
-
-        // TODO - Remove troubleshooting console prints
-        //Serial.print("Temp reading: ");
-        //Serial.println(tempValue);
-        //Serial.print("CO2 reading: ");
-        //Serial.println(co2Value);
-
-        // Checks if the current value has changed with more than 0.1 Celsius for temp-sensors, or 0.1 PPM for CO2-sensors
-        // and if the value has changed since last iteration emits a new message to the server
-        checkForSensorChange("temperature", TEMP_SENSOR_KEY, tempValue);
-        checkForSensorChange("co2", CO2_SENSOR_KEY, co2Value);
-
-        // TODO - Figure out why the internal temp gives ~80 degrees celsius
-        checkForSensorChange("internal-temp", INTERNAL_TEMP_SENSOR_KEY, 0);
 
     }
 

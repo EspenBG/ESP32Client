@@ -43,8 +43,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="936bc293-097a-445b-8294-fc0e1d190978" name="Default Changelist" comment="Program changed for postponed movie 11.12.20:&#10;Added: internal temperature sensor surveillance, sending of output states, surveillance / regulation mode selection, some code cleanup (changing variable names and functions).">
+    <list default="true" id="936bc293-097a-445b-8294-fc0e1d190978" name="Default Changelist" comment="Added comments for all functions and corrected some variable names.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -147,7 +148,7 @@
       <workItem from="1607461033641" duration="564000" />
       <workItem from="1607461778575" duration="12191000" />
       <workItem from="1607536685110" duration="5936000" />
-      <workItem from="1607557644904" duration="39314000" />
+      <workItem from="1607557644904" duration="67731000" />
     </task>
     <task id="LOCAL−00001" summary="Can now receive messages from script.js with socketio.">
       <created>1605559862702</created>
@@ -215,7 +216,13 @@
       <option name="presentableId" value="LOCAL−00011" />
       <updated>1607649422267</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL−00012" summary="Added comments for all functions and corrected some variable names.">
+      <created>1607657485523</created>
+      <option name="number" value="LOCAL−00012" />
+      <option name="presentableId" value="LOCAL−00012" />
+      <updated>1607657485523</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -271,6 +278,7 @@
     <MESSAGE value="Small changes" />
     <MESSAGE value="Program almost ready for movie making the 10.12.20. &#10;&#10;Problem when server receives the sensor data:&#10;When this is emitted with sensorData: {&quot;SensorID&quot;:&quot;000001&quot;,&quot;value&quot;:44.90}&#10;&#10;Server gets error: TypeError: Cannot read property 'undefined' of undefined (at line 206)." />
     <MESSAGE value="Program changed for postponed movie 11.12.20:&#10;Added: internal temperature sensor surveillance, sending of output states, surveillance / regulation mode selection, some code cleanup (changing variable names and functions)." />
-    <option name="LAST_COMMIT_MESSAGE" value="Program changed for postponed movie 11.12.20:&#10;Added: internal temperature sensor surveillance, sending of output states, surveillance / regulation mode selection, some code cleanup (changing variable names and functions)." />
+    <MESSAGE value="Added comments for all functions and corrected some variable names." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added comments for all functions and corrected some variable names." />
   </component>
 </project>

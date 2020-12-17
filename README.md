@@ -1,15 +1,68 @@
 # ESP-32 Client
 
-This is a ESP-32 client for reading different types of sensors, for integrating the client to a server.
+This is a ESP-32 client for reading different types of sensors, and for integrating the client to a server. This ESP-32
+communicates with a server, and receives information on how to regulate with potential set-points for the actuators. 
+Furthermore the ESP-32 regulates the output based on this information, in addition to sending system parameters, like 
+output states, to the server. 
 
 [//]: # (TODO: Add a complete guide and description for the module)
 
 ## Installation
-Describe the installation  process for the library.
+The program can be opened in different code editors for Arduino C like CLion or Arduino IDE.
+
  
 ## Usage
-[//]: # (TODO: Describe the usage of the library and test program)
-Describe how to use the library.
+### Configuration of additional sensors
+#### System constants for every system
+Some system constants have to be set for the ESP-32 to work as intended. 
+Values like SSID name and corresponding password has to be set in the variables SSID and PASSWORD. 
+
+Furthermore the IP address, port number and path for the server has to be set in the variables HOST, PORT and PATH respectively.
+
+The robots ID has to be set in ROBOT_ID, and password for the robot to be set in SERVER_PASSWORD. Server password has to correspond 
+to one of the passwords set in the robot server. 
+
+#### System example details
+As an example the program is now configured for one internal temperature sensor, one normal temperature sensor and one
+CO2 sensor. Both the normal temperature and the CO2 sensors is configured with an output for regulation.
+
+#### Instructions for adding additional sensors / actuators
+If user wants to connect more sensors and outputs, additional global variables has to be set, and more function calls in the
+main loop has to be called.
+
+##### New variables
+For each new sensor the following variables has to be set:
+
+INPUT_PIN, OUTPUT_PIN, setpoint, value, previousValue, reversed, previousOutputState, surveillanceMode and SENSOR_KEY.
+
+Examples for each of these potential new variables are already set in the program and are currently named:
+
+TEMP_INPUT_PIN, HEATER_OUTPUT_PIN, temperatureSetpoint, tempValue, previousTempValue, tempActuatorReversed, 
+previousTempOutputState, surveillanceModeTemp and TEMP_SENSOR_KEY.
+
+##### New function calls
+Every new output has to be initialized in the setup of the program with this function:
+
+pinMode(OUTPUT_PIN, OUTPUT);
+
+Furthermore if the user wants to add more sensors, the following extra function calls have to be called in the main loop:
+
+value = readSensorValue("sensor_type", INPUT_PIN);
+
+And inside the first if statement in the main loop that is checking if the robot is authenticated and timer has expired. Here a new if statement
+with the function call and parameters need to be called:
+
+if (!surveillanceMode) {
+
+setOutputState("sensor_type", setpoint, value, OUTPUT_PIN, reversed, SENSOR_KEY);
+
+}
+
+Additionally this sensor has to be called with the following parameters:
+
+checkForSensorChange("sensor_type", SENSOR_KEY, value);
+
+
 
 
 ## Contributing
