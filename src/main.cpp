@@ -1,3 +1,8 @@
+/***********************************************************************************************************************
+ * ROBOT CLIENT
+ * THIS IS A PROGRAM FOR A ROBOT CONTROLLING HEATING AND AIR QUALITY OF A ROOM
+ * WRITTEN AS A PART OF THE SUBJECT IELEA2001
+ ***********************************************************************************************************************/
 #include <WiFi.h>
 #include <SocketIoClient.h>
 #include <ArduinoJson.h>
