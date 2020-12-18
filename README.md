@@ -5,10 +5,8 @@ communicates with a server, and receives information on how to regulate with pot
 Furthermore the ESP-32 regulates the output based on this information, in addition to sending system parameters, like 
 output states, to the server. 
 
-[//]: # (TODO: Add a complete guide and description for the module)
-
 ## Installation
-The program can be opened in different code editors for Arduino C like CLion or Arduino IDE.
+The program can be opened in different code editors for Arduino C, as for example CLion or Arduino IDE.
 
  
 ## Usage
@@ -31,36 +29,51 @@ If user wants to connect more sensors and outputs, additional global variables h
 main loop has to be called.
 
 ##### New variables
-For each new sensor the following variables has to be set:
+For each new sensor and actuator the following types of variables has to be set with their own unique name:
 
-INPUT_PIN, OUTPUT_PIN, setpoint, value, previousValue, reversed, previousOutputState, surveillanceMode and SENSOR_KEY.
-
+```
+int INPUT_PIN;
+int OUTPUT_PIN;
+float setpoint;
+float value;
+float previousValue;
+bool actuatorReversed;
+bool previousOutputState;
+bool surveillanceMode;
+String SENSOR_KEY;
+```
 Examples for each of these potential new variables are already set in the program and are currently named:
 
-TEMP_INPUT_PIN, HEATER_OUTPUT_PIN, temperatureSetpoint, tempValue, previousTempValue, tempActuatorReversed, 
-previousTempOutputState, surveillanceModeTemp and TEMP_SENSOR_KEY.
-
+```
+int TEMP_INPUT_PIN;
+int HEATER_OUTPUT_PIN;
+float temperatureSetpoint;
+float tempValue;
+float previousTempValue;
+bool tempActuatorreversed;
+bool previousTempOutputState;
+bool surveillanceModeTemp;
+String TEMP_SENSOR_KEY;
+```
 ##### New function calls
 Every new output has to be initialized in the setup of the program with this function:
 
-pinMode(OUTPUT_PIN, OUTPUT);
+```pinMode(OUTPUT_PIN, OUTPUT);```
 
 Furthermore if the user wants to add more sensors, the following extra function calls have to be called in the main loop:
 
-value = readSensorValue("sensor_type", INPUT_PIN);
+```value = readSensorValue("sensor_type", INPUT_PIN);```
 
 And inside the first if statement in the main loop that is checking if the robot is authenticated and timer has expired. Here a new if statement
 with the function call and parameters need to be called:
-
+```
 if (!surveillanceMode) {
-
 setOutputState("sensor_type", setpoint, value, OUTPUT_PIN, reversed, SENSOR_KEY);
-
 }
+```
+Additionally this function for sending values to server has to be called with the following parameters:
 
-Additionally this sensor has to be called with the following parameters:
-
-checkForSensorChange("sensor_type", SENSOR_KEY, value);
+```checkForSensorChange("sensor_type", SENSOR_KEY, value);```
 
 
 
